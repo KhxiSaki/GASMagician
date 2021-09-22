@@ -41,6 +41,9 @@ public class GASTools : ModuleRules
 				"GameplayAbilities",
 				"GameplayTasks",
 				"GameplayTags",
+				"GameFeatures",
+				"EnhancedInput",
+				"ModularGameplay",
 				"AIModule"
 				// ... add private dependencies that you statically link with here ...	
 			}
