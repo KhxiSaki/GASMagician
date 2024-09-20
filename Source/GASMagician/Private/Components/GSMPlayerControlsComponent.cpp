@@ -1,6 +1,6 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 
-#include "GSMPlayerControlsComponent.h"
+#include "Components/GSMPlayerControlsComponent.h"
 
 #include "Components/InputComponent.h"
 #include "Delegates/Delegate.h"

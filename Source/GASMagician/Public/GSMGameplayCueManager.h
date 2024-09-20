@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameplayCueManager.h"
-#include "GSMGameplayAbilitiesSettings.h"
+#include "DeveloperSettings/GSMGameplayAbilitiesSettings.h"
 #include "GSMGameplayCueManager.generated.h"
 
 class UGSMGameplayAbilitiesSettings;
@@ -19,14 +19,13 @@ class GASMAGICIAN_API UGSMGameplayCueManager : public UGameplayCueManager
 	virtual bool ShouldAsyncLoadRuntimeObjectLibraries() const override
 	{
 		const UGSMGameplayAbilitiesSettings* GSMSettings = GetDefault<UGSMGameplayAbilitiesSettings>();
+		
 		if(GSMSettings->bEnabledAutomaticLoadingOfGameplayCue)
 		{
 			return true;
 		}
-		else
-		{
-			return false;
-		}
+		
+		return false;
 	}
 	
 	

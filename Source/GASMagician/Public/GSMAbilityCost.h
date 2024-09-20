@@ -14,7 +14,7 @@ class UGSMGameplayAbility;
  *
  * Base class for costs that a GSMGameplayAbility has (e.g., ammo or charges)
  */
-UCLASS(DefaultToInstanced, EditInlineNew, Abstract)
+UCLASS(DefaultToInstanced, EditInlineNew, Abstract, Blueprintable)
 class GASMAGICIAN_API UGSMAbilityCost : public UObject
 {
 	GENERATED_BODY()

@@ -14,7 +14,7 @@ class UGSMGameplayAbility;
  *
  * Base class for cooldowns that a GSMGameplayAbility has.
  */
-UCLASS(DefaultToInstanced, EditInlineNew, Abstract)
+UCLASS(DefaultToInstanced, EditInlineNew, Abstract, Blueprintable)
 class GASMAGICIAN_API UGSMAbilityCooldown : public UObject
 {
 	GENERATED_BODY()

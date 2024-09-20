@@ -6,7 +6,7 @@
 #include "AbilitySystemGlobals.h"
 #include "GSMAbilityCooldown.h"
 #include "GSMAbilityCost.h"
-#include "GSMAbilitySystemComponent.h"
+#include "Components/GSMAbilitySystemComponent.h"
 #include "GSMTargetType.h"
 
 UGSMGameplayAbility::UGSMGameplayAbility(const FObjectInitializer& ObjectInitializer)

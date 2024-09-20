@@ -3,7 +3,7 @@
 
 #include "ModularGameplayActors/GSMModularActor.h"
 
-#include "GSMAbilitySystemComponent.h"
+#include "Components/GSMAbilitySystemComponent.h"
 #include "Components/GameFrameworkComponentManager.h"
 
 

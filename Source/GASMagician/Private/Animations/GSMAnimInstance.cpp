@@ -1,6 +1,6 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 
-#include "GSMAnimInstance.h"
+#include "Animations/GSMAnimInstance.h"
 
 #include "AbilitySystemComponent.h"
 #include "GameFramework/Actor.h"

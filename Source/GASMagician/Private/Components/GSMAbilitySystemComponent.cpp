@@ -1,9 +1,9 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "GSMAbilitySystemComponent.h"
+#include "Components/GSMAbilitySystemComponent.h"
 #include "GSMAbilityTagRelationshipMapping.h"
-#include "GSMAnimInstance.h"
+#include "Animations/GSMAnimInstance.h"
 #include "GSMGameplayAbility.h"
 
 UGSMAbilitySystemComponent::UGSMAbilitySystemComponent(const FObjectInitializer& ObjectInitializer)

@@ -1,6 +1,6 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 
-#include "GSMAbilityInputBindingComponent.h"
+#include "Components/GSMAbilityInputBindingComponent.h"
 
 #include "AbilitySystemComponent.h"
 #include "AbilitySystemGlobals.h"

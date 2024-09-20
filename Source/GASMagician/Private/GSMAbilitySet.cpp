@@ -3,7 +3,7 @@
 #include "GSMAbilitySet.h"
 
 #include "GSMGameplayAbility.h"
-#include "GSMAbilitySystemComponent.h"
+#include "Components/GSMAbilitySystemComponent.h"
 #include "GSMGameplayLog.h"
 
 #include UE_INLINE_GENERATED_CPP_BY_NAME(GSMAbilitySet)

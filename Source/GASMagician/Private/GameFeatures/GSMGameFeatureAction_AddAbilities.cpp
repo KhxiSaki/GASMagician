@@ -3,8 +3,8 @@
 #include "GameFeatures/GSMGameFeatureAction_AddAbilities.h"
 
 #include "Abilities/GameplayAbility.h"
-#include "GSMAbilityInputBindingComponent.h"
-#include "GSMAttributeSet.h"
+#include "Components/GSMAbilityInputBindingComponent.h"
+#include "AttributeSets/GSMAttributeSet.h"
 #include "AbilitySystemComponent.h"
 #include "AssetRegistry/AssetBundleData.h"
 #include "AttributeSet.h"
