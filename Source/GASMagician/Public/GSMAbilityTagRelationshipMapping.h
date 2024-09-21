@@ -39,7 +39,7 @@ struct FGSMAbilityTagRelationship
 
 /** Mapping of how ability tags block or cancel other abilities */
 UCLASS()
-class UGSMAbilityTagRelationshipMapping : public UDataAsset
+class GASMAGICIAN_API UGSMAbilityTagRelationshipMapping : public UDataAsset
 {
 	GENERATED_BODY()
 

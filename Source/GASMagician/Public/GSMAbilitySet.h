@@ -121,7 +121,7 @@ protected:
  *	Non-mutable data asset used to grant gameplay abilities and gameplay effects.
  */
 UCLASS(BlueprintType, Const)
-class UGSMAbilitySet : public UPrimaryDataAsset
+class GASMAGICIAN_API UGSMAbilitySet : public UPrimaryDataAsset
 {
 	GENERATED_BODY()
 
