@@ -24,7 +24,7 @@ TSoftClassPtr<> UGSMAssetDefinition_GameplayEffect::GetAssetClass() const
 
 TConstArrayView<FAssetCategoryPath> UGSMAssetDefinition_GameplayEffect::GetAssetCategories() const
 {
-	static const auto Categories = { FAssetCategoryPath(LOCTEXT("GASMagician", "GAS Magician"), LOCTEXT("DataAssets","DataAssets")) };
+	static const auto Categories = { FAssetCategoryPath(LOCTEXT("GASMagician", "GAS Magician")) };
 	return Categories;
 }
 

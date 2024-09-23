@@ -36,10 +36,6 @@ public:
 	// Level of ability to grant.
 	UPROPERTY(EditDefaultsOnly)
 	int32 AbilityLevel = 1;
-
-	// Tag used to process input for the ability.
-	UPROPERTY(EditDefaultsOnly, Meta = (Categories = "InputTag"))
-	FGameplayTag InputTag;
 };
 
 

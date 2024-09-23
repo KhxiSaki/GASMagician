@@ -94,13 +94,8 @@ void UGSMAbilitySet::GiveToAbilitySystem(UGSMAbilitySystemComponent* GSMASC, FGS
 		UGSMGameplayAbility* AbilityCDO = AbilityToGrant.Ability->GetDefaultObject<UGSMGameplayAbility>();
 
 		FGameplayAbilitySpec AbilitySpec(AbilityCDO, AbilityToGrant.AbilityLevel);
-#if ENGINE_MAJOR_VERSION == 5 && ENGINE_MINOR_VERSION >= 5
 		AbilitySpec.SourceObject = SourceObject;
-		AbilitySpec.GetDynamicSpecSourceTags().AddTag(AbilityToGrant.InputTag);
-#else
-		AbilitySpec.SourceObject = SourceObject;
-		AbilitySpec.DynamicAbilityTags.AddTag(AbilityToGrant.InputTag);	
-#endif
+
 		const FGameplayAbilitySpecHandle AbilitySpecHandle = GSMASC->GiveAbility(AbilitySpec);
 
 		if (OutGrantedHandles)
