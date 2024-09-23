@@ -4,8 +4,6 @@
 
 #include "CoreMinimal.h"
 #include "Modules/ModuleManager.h"
-#include "Actions/GSMAbilitySetActions.h"
-#include "Actions/GSMAbilityTagRelationshipMapping.h"
 
 class FGASMagicianEditorModule : public IModuleInterface
 {
@@ -16,26 +14,24 @@ public:
 	virtual void ShutdownModule() override;
 
 	/**
-     * Singleton-like access to this module's interface.  This is just for convenience!
-     * Beware of calling this during the shutdown phase, though.  Your module might have been unloaded already.
-     *
-     * @return Returns singleton instance, loading the module on demand if needed
-     */
+		 * Singleton-like access to this module's interface.  This is just for convenience!
+		 * Beware of calling this during the shutdown phase, though.  Your module might have been unloaded already.
+		 *
+		 * @return Returns singleton instance, loading the module on demand if needed
+		 */
 	static inline FGASMagicianEditorModule& Get()
 	{
-		return FModuleManager::LoadModuleChecked< FGASMagicianEditorModule >( "GASMagicianEditor" );
+		static FGASMagicianEditorModule& Singleton = FModuleManager::LoadModuleChecked< FGASMagicianEditorModule >("GASMagicianEditor");
+		return Singleton;
 	}
 
-#if WITH_EDITOR
-	
-	//Making a factory so when we right click on content browser, an option for Gameplay->CommonClasses will be there
-	TSharedPtr<FGSMAbilitySetActions> AbilitySetActions;
-	//Making a factory so when we right click on content browser, an option for Gameplay->CommonClasses will be there
-	TSharedPtr<FGSMAbilityTagRelationshipActions> AbilityTagRelationshipActions;
-
-	virtual EAssetTypeCategories::Type GetGASAssetCategoryBit() const { return GASAssetCategoryBit; }
-protected:
-	EAssetTypeCategories::Type GASAssetCategoryBit;
-#endif
-	
+	/**
+	 * Checks to see if this module is loaded and ready.  It is only valid to call Get() if IsAvailable() returns true.
+	 *
+	 * @return True if the module is loaded and ready to use
+	 */
+	static inline bool IsAvailable()
+	{
+		return FModuleManager::Get().IsModuleLoaded( "GASMagicianEditor" );
+	}
 };

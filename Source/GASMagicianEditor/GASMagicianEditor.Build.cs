@@ -37,7 +37,8 @@ public class GASMagicianEditor : ModuleRules
                 "SlateCore",
                 "UnrealEd",
 				"GASMagician",
-				"GameplayAbilities"
+				"GameplayAbilities",
+				"AssetDefinition"
 				// ... add other public dependencies that you statically link with here ...
 			}
 			);
