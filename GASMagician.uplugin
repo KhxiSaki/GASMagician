@@ -46,8 +46,17 @@
 				"Mac",
 				"Linux"
 			]
+		}, 
+		{
+			"Name": "GASMagicianCQTTests",
+			"Type": "Runtime",
+			"LoadingPhase": "Default",
+			"PlatformAllowList": [
+				"Win64",
+				"Mac",
+				"Linux"
+			]
 		}
-
 	],
 	"Plugins": [
 		{
@@ -76,6 +85,14 @@
 		},
 		{
 			"Name": "CommonUI",
+			"Enabled": true
+		},
+		{
+			"Name": "CQTest",
+			"Enabled": true
+		},
+		{
+			"Name": "CQTestEnhancedInput",
 			"Enabled": true
 		}
 	]
