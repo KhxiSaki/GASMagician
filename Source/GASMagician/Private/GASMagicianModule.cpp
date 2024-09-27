@@ -1,6 +1,6 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 
-#include "GASMagician.h"
+#include "GASMagicianModule.h"
 
 #define LOCTEXT_NAMESPACE "FGASMagicianModule"
 
