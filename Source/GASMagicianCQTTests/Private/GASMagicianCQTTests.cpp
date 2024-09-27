@@ -1,6 +1,6 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 
-#include "GASMagicianCQTTests.h"
+#include "MotionMagicianCQTTests.h"
 
 #define LOCTEXT_NAMESPACE "FGASMagicianCQTTestsModule"
 

@@ -30,7 +30,17 @@ public:
 	virtual void OnRep_PlayerState() override;
 	virtual void OnRep_Controller() override;
 	//~ End AActor Interface
-	
+
+	UFUNCTION(BlueprintImplementableEvent, Category = "Damage")
+	void CalculateUpdatedDamage(float OriginalDamage, const UGSMAttributeSet* SourceAttributes, FGameplayTagContainer EffectTags, float& NewDamage);
+
+	UFUNCTION(BlueprintImplementableEvent, Category = Combat)
+	void OnDeath();
+	UFUNCTION(BlueprintImplementableEvent, Category = Combat)
+	void OnTakeDamage(AGSMModularCharacter* WhoAttackedMe, float DamageAmount);
+	UFUNCTION(BlueprintImplementableEvent, Category = Combat)
+	void OnInflictDamage(AGSMModularCharacter* WhoWasDamaged, float DamageAmount);
+
 protected:
 
 	UPROPERTY()

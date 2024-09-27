@@ -1,6 +1,6 @@
 // Copyright (c) CreationArtStudios 2024 Inc. All Rights Reserved.
 
-#include "GASMagicianEditor.h"
+#include "MotionMagicianEditor.h"
 
 #define LOCTEXT_NAMESPACE "FGASMagicianEditorModule"
 
