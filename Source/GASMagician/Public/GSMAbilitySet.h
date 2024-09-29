@@ -30,11 +30,11 @@ struct FGSMAbilitySet_GameplayAbility
 public:
 
 	// Gameplay ability to grant.
-	UPROPERTY(EditDefaultsOnly)
+	UPROPERTY(EditDefaultsOnly, Category="GASMagician")
 	TSubclassOf<UGSMGameplayAbility> Ability = nullptr;
 
 	// Level of ability to grant.
-	UPROPERTY(EditDefaultsOnly)
+	UPROPERTY(EditDefaultsOnly, Category="GASMagician")
 	int32 AbilityLevel = 1;
 };
 
@@ -52,11 +52,11 @@ struct FGSMAbilitySet_GameplayEffect
 public:
 
 	// Gameplay effect to grant.
-	UPROPERTY(EditDefaultsOnly)
+	UPROPERTY(EditDefaultsOnly, Category="GASMagician")
 	TSubclassOf<UGameplayEffect> GameplayEffect = nullptr;
 
 	// Level of gameplay effect to grant.
-	UPROPERTY(EditDefaultsOnly)
+	UPROPERTY(EditDefaultsOnly, Category="GASMagician")
 	float EffectLevel = 1.0f;
 };
 
@@ -72,7 +72,7 @@ struct FGSMAbilitySet_AttributeSet
 
 public:
 	// Gameplay effect to grant.
-	UPROPERTY(EditDefaultsOnly)
+	UPROPERTY(EditDefaultsOnly, Category="GASMagician")
 	TSubclassOf<UAttributeSet> AttributeSet;
 
 };

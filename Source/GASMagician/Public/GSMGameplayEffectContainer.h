@@ -29,11 +29,11 @@ public:
 	FGSMGameplayEffectContainer() {}
 
 	/** Sets the way that targeting happens */
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = GameplayEffectContainer)
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "GASMagician|GameplayEffectContainer")
 	TSubclassOf<UGSMTargetType> TargetType;
 
 	/** List of gameplay effects to apply to the targets */
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = GameplayEffectContainer)
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "GASMagician|GameplayEffectContainer")
 	TArray<TSubclassOf<UGameplayEffect>> TargetGameplayEffectClasses;
 };
 
@@ -47,11 +47,11 @@ public:
 	FGSMGameplayEffectContainerSpec() {}
 
 	/** Computed target data */
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = GameplayEffectContainer)
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "GASMagician|GameplayEffectContainer")
 	FGameplayAbilityTargetDataHandle TargetData;
 
 	/** List of gameplay effects to apply to the targets */
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = GameplayEffectContainer)
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "GASMagician|GameplayEffectContainer")
 	TArray<FGameplayEffectSpecHandle> TargetGameplayEffectSpecs;
 
 	/** Returns true if this has any valid effect specs */

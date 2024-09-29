@@ -24,7 +24,7 @@ public:
 	// Listens for changes (Begin and End) to cooldown GameplayEffects based on the cooldown tag.
 	// UseServerCooldown determines if the Sever's cooldown is returned in addition to the local predicted cooldown.
 	// If using ServerCooldown, TimeRemaining and Duration will return -1 to signal local predicted cooldown has begun.
-	UFUNCTION(BlueprintCallable, Category = "Ability|Tasks", meta = (DefaultToSelf = "TargetActor", BlueprintInternalUseOnly = "TRUE"))
+	UFUNCTION(BlueprintCallable, Category="GASMagician", meta = (DefaultToSelf = "TargetActor", BlueprintInternalUseOnly = "TRUE"))
 	static UAbilityAsync_WaitCooldownChanged* WaitForCooldownChange(AActor* TargetActor, FGameplayTagContainer CooldownTags, bool UseServerCooldown);
 
 protected:

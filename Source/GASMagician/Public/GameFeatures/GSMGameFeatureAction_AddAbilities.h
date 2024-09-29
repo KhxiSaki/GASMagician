@@ -36,11 +36,11 @@ struct FGSMAbilityMapping
 	GENERATED_BODY()
 
 	// Type of ability to grant
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="GASMagician")
 	TSoftClassPtr<UGameplayAbility> AbilityType;
 
 	// Input action to bind the ability to, if any (can be left unset)
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="GASMagician")
 	TSoftObjectPtr<UInputAction> InputAction;
 };
 
@@ -50,11 +50,11 @@ struct FGSMAttributesMapping
 	GENERATED_BODY()
 
 	// Ability set to grant
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="GASMagician")
 	TSoftClassPtr<UGSMAttributeSet> AttributeSetType;
 
 	// Data table referent to initialize the attributes with, if any (can be left unset)
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="GASMagician")
 	TSoftObjectPtr<UDataTable> InitializationData;
 };
 
@@ -64,15 +64,15 @@ struct FGameFeatureAbilitiesEntry
 	GENERATED_BODY()
 
 	// The base actor class to add to
-	UPROPERTY(EditAnywhere, Category="Abilities")
+	UPROPERTY(EditAnywhere, Category="GASMagician")
 	TSoftClassPtr<AActor> ActorClass;
 
 	// List of abilities to grant to actors of the specified class
-	UPROPERTY(EditAnywhere, Category="Abilities")
+	UPROPERTY(EditAnywhere, Category="GASMagician")
 	TArray<FGSMAbilityMapping> GrantedAbilities;
 
 	// List of attribute sets to grant to actors of the specified class 
-	UPROPERTY(EditAnywhere, Category="Attributes")
+	UPROPERTY(EditAnywhere, Category="GASMagician")
 	TArray<FGSMAttributesMapping> GrantedAttributes;
 };
 
@@ -103,7 +103,7 @@ public:
 	//~ End UObject interface
 
 	/**  */
-	UPROPERTY(EditAnywhere, Category="Abilities", meta=(TitleProperty="ActorClass", ShowOnlyInnerProperties))
+	UPROPERTY(EditAnywhere, Category="GASMagician", meta=(TitleProperty="ActorClass", ShowOnlyInnerProperties))
 	TArray<FGameFeatureAbilitiesEntry> AbilitiesList;
 
 private:

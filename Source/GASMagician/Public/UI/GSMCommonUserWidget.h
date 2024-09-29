@@ -6,6 +6,7 @@
 #include "CommonUserWidget.h"
 #include "GSMCommonUserWidget.generated.h"
 
+class UAbilitySystemComponent;
 /**
  * 
  */
@@ -14,7 +15,10 @@ class GASMAGICIAN_API UGSMCommonUserWidget : public UCommonUserWidget
 {
 	GENERATED_BODY()
 	
-	
+protected:
+
+	virtual void NativeConstruct() override;
+	virtual void NativeDestruct() override;
 	
 	
 };

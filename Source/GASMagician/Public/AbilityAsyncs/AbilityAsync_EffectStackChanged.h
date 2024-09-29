@@ -20,7 +20,7 @@ public:
 	UPROPERTY(BlueprintAssignable)
 	FOnGameplayEffectStackChanged OnGameplayEffectStackChange;
 
-	UFUNCTION(BlueprintCallable, Category = "Ability|Tasks", meta = (DefaultToSelf = "TargetActor", BlueprintInternalUseOnly = "TRUE"))
+	UFUNCTION(BlueprintCallable, Category="GASMagician", meta = (DefaultToSelf = "TargetActor", BlueprintInternalUseOnly = "TRUE"))
 	static UAbilityAsync_EffectStackChanged* WaitForGameplayEffectStackChange(AActor* TargetActor, FGameplayTag EffectGameplayTag);
 
 protected:

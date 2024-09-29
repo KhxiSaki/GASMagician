@@ -48,11 +48,11 @@ public:
 #endif
 	//~ End UObject interface
 
-	UPROPERTY(EditAnywhere, Category="Input")
+	UPROPERTY(EditAnywhere, Category="GASMagician")
 	TSoftObjectPtr<UInputMappingContext> InputMapping;
 
 	// Higher priority input mappings will be prioritized over mappings with a lower priority.
-	UPROPERTY(EditAnywhere, Category="Input")
+	UPROPERTY(EditAnywhere, Category="GASMagician")
 	int32 Priority = 0;
 
 private:

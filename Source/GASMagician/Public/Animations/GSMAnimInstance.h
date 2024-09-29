@@ -23,11 +23,11 @@ public:
 
 	void InitializeWithAbilitySystem(UAbilitySystemComponent* AbilityComponent);
 
-	UFUNCTION(BlueprintImplementableEvent, DisplayName = "Initialize with Ability System (GAS Magician)")
+	UFUNCTION(BlueprintImplementableEvent, Category="GASMagician", DisplayName = "Initialize with Ability System (GAS Magician)")
 	void ReceiveAbilitySystem(UAbilitySystemComponent* AbilitySystem);
 
 protected:
-	UPROPERTY(EditDefaultsOnly, Category = "Gameplay")
+	UPROPERTY(EditDefaultsOnly, Category="GASMagician")
 	FGameplayTagBlueprintPropertyMap GameplayTagPropertyMap;
 
 #if WITH_EDITOR

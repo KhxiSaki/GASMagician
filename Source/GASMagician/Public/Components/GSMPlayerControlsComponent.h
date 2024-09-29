@@ -32,21 +32,21 @@ public:
 	//~ End UActorComponent interface
 
 	/** Input mapping to add to the input system */
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Player Controls")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="GASMagician")
 	UInputMappingContext* InputMappingContext = nullptr;
 
 	/** Priority to bind mapping context with */
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Player Controls")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="GASMagician")
 	int InputPriority = 0;
 
 protected:
 	
 	/** Native/BP Event to set up player controls */
-	UFUNCTION(BlueprintNativeEvent, Category = "Player Controls")
+	UFUNCTION(BlueprintNativeEvent, Category="GASMagician")
 	void SetupPlayerControls(UEnhancedInputComponent* PlayerInputComponent);
 
 	/** Native/BP Event to undo control setup */
-	UFUNCTION(BlueprintNativeEvent, Category = "Player Controls")
+	UFUNCTION(BlueprintNativeEvent, Category="GASMagician")
 	void TeardownPlayerControls(UEnhancedInputComponent* PlayerInputComponent);
 
 	/** Wrapper function for binding to this input component */

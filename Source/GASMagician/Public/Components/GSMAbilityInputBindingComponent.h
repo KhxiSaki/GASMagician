@@ -37,13 +37,13 @@ class UGSMAbilityInputBindingComponent : public UGSMPlayerControlsComponent
 	GENERATED_BODY()
 
 public:
-	UFUNCTION(BlueprintCallable, Category = "AncientGame|Abilities")
+	UFUNCTION(BlueprintCallable, Category="GASMagician")
 	void SetInputBinding(UInputAction* InputAction, FGameplayAbilitySpecHandle AbilityHandle);
 
-	UFUNCTION(BlueprintCallable, Category = "AncientGame|Abilities")
+	UFUNCTION(BlueprintCallable, Category="GASMagician")
 	void ClearInputBinding(FGameplayAbilitySpecHandle AbilityHandle);
 
-	UFUNCTION(BlueprintCallable, Category = "AncientGame|Abilities")
+	UFUNCTION(BlueprintCallable, Category="GASMagician")
 	void ClearAbilityBindings(UInputAction* InputAction);
 
 	//~ Begin UPlayerControlsComponent interface

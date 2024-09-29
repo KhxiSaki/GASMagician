@@ -15,6 +15,7 @@ class GASMAGICIAN_API UGSMAbilitySystemGlobals : public UAbilitySystemGlobals
 	GENERATED_BODY()
 	
 public:
+	
 	static UGSMAbilitySystemGlobals& GSMGet()
 	{
 		return dynamic_cast<UGSMAbilitySystemGlobals&>(Get());

@@ -50,9 +50,6 @@ void UAbilityAsync_WaitCooldownChanged::EndAction()
 			ASC->RegisterGameplayTagEvent(CooldownTag, EGameplayTagEventType::NewOrRemoved).RemoveAll(this);
 		}
 	}
-
-	SetReadyToDestroy();
-	MarkAsGarbage();
 }
 
 void UAbilityAsync_WaitCooldownChanged::OnActiveGameplayEffectAddedCallback(UAbilitySystemComponent * Target, const FGameplayEffectSpec & SpecApplied, FActiveGameplayEffectHandle ActiveHandle)
