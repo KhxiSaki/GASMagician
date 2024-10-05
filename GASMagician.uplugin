@@ -19,13 +19,12 @@
 		{
 			"Name": "GASMagician",
 			"Type": "Runtime",
-			"LoadingPhase": "Default",
+			"LoadingPhase": "PreDefault",
 			"PlatformAllowList": [
 				"Win64",
 				"Mac",
 				"Linux"
 			]
-
 		},
 		{
 			"Name": "GASMagicianEditor",
@@ -46,11 +45,11 @@
 				"Mac",
 				"Linux"
 			]
-		}, 
+		},
 		{
 			"Name": "GASMagicianCQTTests",
 			"Type": "Runtime",
-			"LoadingPhase": "Default",
+			"LoadingPhase": "PreDefault",
 			"PlatformAllowList": [
 				"Win64",
 				"Mac",

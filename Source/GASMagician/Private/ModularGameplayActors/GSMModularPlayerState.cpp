@@ -11,7 +11,7 @@
 AGSMModularPlayerState::AGSMModularPlayerState(const FObjectInitializer& ObjectInitializer)
 	: Super(ObjectInitializer)
 {
-	AbilitySystemComponent = CreateDefaultSubobject<UGSMAbilitySystemComponent>(TEXT("AbilitySystemComponent"));
+	AbilitySystemComponent = ObjectInitializer.CreateDefaultSubobject<UGSMAbilitySystemComponent>(this, TEXT("AbilitySystemComponent"));
 	AbilitySystemComponent->SetIsReplicated(true);
 
 	// Mixed mode means we only are replicated the GEs to ourself, not the GEs to simulated proxies. If another GDPlayerState (Hero) receives a GE,

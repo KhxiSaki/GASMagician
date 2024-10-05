@@ -76,3 +76,42 @@ void AGSMModularCharacter::OnRep_Controller()
 {
 	Super::OnRep_Controller();
 }
+
+
+void AGSMModularCharacter::GetOwnedGameplayTags(FGameplayTagContainer& TagContainer) const
+{
+	if (const UGSMAbilitySystemComponent* ASC = Cast<UGSMAbilitySystemComponent>(GetAbilitySystemComponent()))
+	{
+		ASC->GetOwnedGameplayTags(TagContainer);
+	}
+}
+
+bool AGSMModularCharacter::HasMatchingGameplayTag(FGameplayTag TagToCheck) const
+{
+	if (const UGSMAbilitySystemComponent* ASC = Cast<UGSMAbilitySystemComponent>(GetAbilitySystemComponent()))
+	{
+		return ASC->HasMatchingGameplayTag(TagToCheck);
+	}
+
+	return false;
+}
+
+bool AGSMModularCharacter::HasAllMatchingGameplayTags(const FGameplayTagContainer& TagContainer) const
+{
+	if (const UGSMAbilitySystemComponent* ASC = Cast<UGSMAbilitySystemComponent>(GetAbilitySystemComponent()))
+	{
+		return ASC->HasAllMatchingGameplayTags(TagContainer);
+	}
+
+	return false;
+}
+
+bool AGSMModularCharacter::HasAnyMatchingGameplayTags(const FGameplayTagContainer& TagContainer) const
+{
+	if (const UGSMAbilitySystemComponent* ASC = Cast<UGSMAbilitySystemComponent>(GetAbilitySystemComponent()))
+	{
+		return ASC->HasAnyMatchingGameplayTags(TagContainer);
+	}
+
+	return false;
+}

@@ -1,0 +1,17 @@
+{
+    "Version": "1.2",
+    "Data": {
+        "Source": "c:\\unrealengine-5.5\\eoc\\plugins\\gasmagician\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\gasmagiciancqttests\\module.gasmagiciancqttests.cpp",
+        "ProvidedModule": "",
+        "PCH": "c:\\unrealengine-5.5\\engine\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\unrealed\\sharedpch.unrealed.project.valapi.cpp20.h.pch",
+        "Includes": [
+            "c:\\unrealengine-5.5\\eoc\\plugins\\gasmagician\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\gasmagiciancqttests\\definitions.gasmagiciancqttests.h",
+            "c:\\unrealengine-5.5\\eoc\\plugins\\gasmagician\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\gasmagiciancqttests\\permoduleinline.gen.cpp",
+            "c:\\unrealengine-5.5\\engine\\source\\runtime\\core\\public\\hal\\permoduleinline.inl",
+            "c:\\unrealengine-5.5\\eoc\\plugins\\gasmagician\\source\\gasmagiciancqttests\\private\\gasmagiciancqtestsmodule.cpp",
+            "c:\\unrealengine-5.5\\eoc\\plugins\\gasmagician\\source\\gasmagiciancqttests\\public\\gasmagiciancqtestsmodule.h"
+        ],
+        "ImportedModules": [],
+        "ImportedHeaderUnits": []
+    }
+}

@@ -1,0 +1,9 @@
+{
+	"RemapUnityFiles": 
+	{
+		"Module.GASMagicianDeveloper.cpp.obj": [
+			"PerModuleInline.gen.cpp.obj",
+			"GASMagicianDeveloperModule.cpp.obj"
+		]
+	}
+}

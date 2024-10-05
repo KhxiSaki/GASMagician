@@ -1,0 +1,22 @@
+{
+	"RemapUnityFiles": 
+	{
+		"Module.GASMagicianEditor.cpp.obj": [
+			"GASMagicianEditor.init.gen.cpp.obj",
+			"GSMAbilitySetFactory.gen.cpp.obj",
+			"GSMAbilityTagRelationshipFactory.gen.cpp.obj",
+			"GSMAssetDefinition_AbilitySet.gen.cpp.obj",
+			"GSMAssetDefinition_AbilityTagRelationship.gen.cpp.obj",
+			"GSMAssetDefinition_GameplayEffect.gen.cpp.obj",
+			"GSMGameplayEffectFactory.gen.cpp.obj",
+			"PerModuleInline.gen.cpp.obj",
+			"GSMAssetDefinition_AbilitySet.cpp.obj",
+			"GSMAssetDefinition_AbilityTagRelationship.cpp.obj",
+			"GSMAssetDefinition_GameplayEffect.cpp.obj",
+			"GSMAbilitySetFactory.cpp.obj",
+			"GSMAbilityTagRelationshipFactory.cpp.obj",
+			"GSMGameplayEffectFactory.cpp.obj",
+			"GASMagicianEditorModule.cpp.obj"
+		]
+	}
+}
