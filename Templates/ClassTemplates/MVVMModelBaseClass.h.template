@@ -1,0 +1,24 @@
+%COPYRIGHT_LINE%
+
+#pragma once
+
+#include "CoreMinimal.h"
+%BASE_CLASS_INCLUDE_DIRECTIVE%
+#include "%UNPREFIXED_CLASS_NAME%.generated.h"
+
+
+ 
+UCLASS(%UCLASS_SPECIFIER_LIST%BlueprintType)
+class %CLASS_MODULE_API_MACRO%%PREFIXED_CLASS_NAME% : public %PREFIXED_BASE_CLASS_NAME%
+{
+	GENERATED_BODY()
+
+public:
+
+	// Sets default values for this AttributeSet attributes
+	%PREFIXED_CLASS_NAME%();
+
+        // %ATTRIBUTES_DECLARATION%
+		%CLASS_FUNCTION_DECLARATIONS%
+	%CLASS_PROPERTIES%
+};

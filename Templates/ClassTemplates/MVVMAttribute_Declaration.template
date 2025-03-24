@@ -1,0 +1,13 @@
+UPROPERTY(BlueprintReadWrite, Category = "%ATTRIBUTE_CATEGORY%", FieldNotify, Setter, Getter, meta=(AllowPrivateAccess))
+	int32 %ATTRIBUTE_NAME%;
+
+UPROPERTY(BlueprintReadWrite, Category = "%ATTRIBUTE_CATEGORY%", FieldNotify, Setter, Getter, meta=(AllowPrivateAccess))
+	int32 Max%ATTRIBUTE_NAME%;
+
+UFUNCTION(BlueprintPure, FieldNotify)
+	 float Get%ATTRIBUTE_NAME%Percent() const;
+
+void Set%ATTRIBUTE_NAME%(int32 New%ATTRIBUTE_NAME%);
+void SetMax%ATTRIBUTE_NAME%(int32 NewMax%ATTRIBUTE_NAME%);
+int32 Get%ATTRIBUTE_NAME%() const;
+int32 GetMax%ATTRIBUTE_NAME%() const;

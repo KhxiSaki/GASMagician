@@ -55,7 +55,18 @@
 				"Mac",
 				"Linux"
 			]
+		},
+		{
+			"Name": "GASMagicianGameProjectGeneration",
+			"Type": "Editor",
+			"LoadingPhase": "PostEngineInit",
+			"PlatformAllowList": [
+				"Win64",
+				"Mac",
+				"Linux"
+			]
 		}
+
 	],
 	"Plugins": [
 		{
