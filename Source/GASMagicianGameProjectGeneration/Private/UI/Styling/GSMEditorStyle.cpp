@@ -33,8 +33,8 @@ FName FGSMEditorStyle::GetStyleSetName()
 TSharedRef<FSlateStyleSet> FGSMEditorStyle::Create()
 {
 	TSharedRef<FSlateStyleSet> Style = CreateStyle("GASMagicianGameProjectGenerationStyle");
-	Style->Set("GASMagicianGameProjectGeneration.OpenPluginWindow", new IMAGE_BRUSH(TEXT("Icon128"), Icon40x40));
-	Style->Set("GASMagicianGameProjectGeneration.OpenPluginWindow.Small", new IMAGE_BRUSH(TEXT("Icon128"), Icon20x20));
+	Style->Set("GASMagicianGameProjectGeneration.OpenPluginWindow", new IMAGE_BRUSH(TEXT("GASMagician"), Icon40x40));
+	Style->Set("GASMagicianGameProjectGeneration.OpenPluginWindow.Small", new IMAGE_BRUSH(TEXT("GASMagician"), Icon20x20));
 
 	const FTextBlockStyle NormalText = FTextBlockStyle()
 	   .SetFont(DEFAULT_FONT("Regular", FCoreStyle::RegularTextSize))
@@ -58,7 +58,25 @@ TSharedRef<FSlateStyleSet> FGSMEditorStyle::Create()
 			.SetShadowColorAndOpacity(FLinearColor(0,0,0,0.9f))
 	);
 
-	Style->Set("Icons.Discord", new IMAGE_BRUSH("Icon128", Icon16x16));
+	//Set discord icon in dropdown project bar
+	Style->Set("Icons.Discord", new IMAGE_BRUSH("Discord", Icon16x16));
+
+	{
+		Style->Set("ClassIcon.GameplayAbility", new IMAGE_BRUSH("Ability_64x", Icon16x16));
+		Style->Set("ClassThumbnail.GameplayAbility", new IMAGE_BRUSH("Ability_64x", Icon16x16));
+		Style->Set("ClassIcon.GameplayEffect", new IMAGE_BRUSH("Effect_64x", Icon16x16));
+		Style->Set("ClassThumbnail.GameplayEffect", new IMAGE_BRUSH("Effect_64x", Icon16x16));
+		Style->Set("ClassIcon.GameplayCueNotify_Actor", new IMAGE_BRUSH("Effect_64x", Icon16x16));
+		Style->Set("ClassThumbnail.GameplayCueNotify_Actor", new IMAGE_BRUSH("Effect_64x", Icon16x16));
+		Style->Set("ClassIcon.AttributeSet", new IMAGE_BRUSH("AttributesSet_64x", Icon16x16));
+		Style->Set("ClassThumbnail.AttributeSet", new IMAGE_BRUSH("AttributesSet_64x", Icon16x16));
+		Style->Set("ClassIcon.GameplayEffectExecutionCalculation", new IMAGE_BRUSH("EffectCalculation_64x", Icon16x16));
+		Style->Set("ClassThumbnail.GameplayEffectExecutionCalculation", new IMAGE_BRUSH("EffectCalculation_64x", Icon16x16));
+		Style->Set("ClassIcon.GSMAbilitySet", new IMAGE_BRUSH("AbilitiesSet_64x", Icon16x16));
+		Style->Set("ClassThumbnail.GSMAbilitySet", new IMAGE_BRUSH("AbilitiesSet_64x", Icon16x16));
+		Style->Set("ClassIcon.GameplayModMagnitudeCalculation", new IMAGE_BRUSH("EffectCalculationModMag_64x", Icon16x16));
+		Style->Set("ClassThumbnail.GameplayModMagnitudeCalculation", new IMAGE_BRUSH("EffectCalculationModMag_64x", Icon16x16));
+	}
 
 	// Common text styles
 	{

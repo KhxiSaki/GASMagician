@@ -189,7 +189,7 @@ void FGASMagicianGameProjectGenerationModule::RegisterComboMenus() const
 		FToolMenuSection& Section = Menu->AddSection("ProjectSection", LOCTEXT("ProjectHeading", "Project"));
 		Section.AddMenuEntry(
 			"GASMagicianNewMVVMModelBaseClass",
-			LOCTEXT("AddMVVMModelBaseClass", "New C++ MVVM Model Base Class..."),
+			LOCTEXT("AddMVVMModelBaseClass", "ModelViewViewModel Wizard"),
 			FText::Format(LOCTEXT("AddMVVMModelBaseClassTooltip", "Adds C++ MVVMModelBase code to the project. The code can only be compiled if you have {0} installed."), ShortIDEName),
 			FSlateIcon(FAppStyle::GetAppStyleSetName(), "MainFrame.AddCodeToProject"),
 			FUIAction(FExecuteAction::CreateStatic(&Local::OpenMVVMModelClassWizard))
