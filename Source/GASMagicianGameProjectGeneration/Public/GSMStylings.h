@@ -1,6 +1,10 @@
 ﻿#pragma once
 #include "CoreMinimal.h"
 
+/**
+* These macros is get from this discord conversation  :https://discord.com/channels/187217643009212416/221799439008923648/801830838819225613
+* and slate module 
+*/
 #define DEFAULT_FONT(...) FCoreStyle::GetDefaultFontStyle(__VA_ARGS__)
 #define IMAGE_BRUSH( RelativePath, ... ) FSlateImageBrush( Style->RootToContentDir( RelativePath, TEXT(".png") ), __VA_ARGS__ )
 #define BOX_BRUSH( Style, RelativePath, ... ) FSlateBoxBrush( Style->RootToContentDir( RelativePath, TEXT(".png") ), __VA_ARGS__ )

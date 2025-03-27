@@ -60,9 +60,11 @@ TSharedRef<FSlateStyleSet> FGSMEditorStyle::Create()
 
 	//Set discord icon in dropdown project bar
 	Style->Set("Icons.Discord", new IMAGE_BRUSH("Discord", Icon16x16));
+	Style->Set("Icons.Github", new IMAGE_BRUSH("Github", Icon16x16));
+	Style->Set("Icons.MVVM", new IMAGE_BRUSH("MVVM", Icon16x16));
+	Style->Set("Icons.Documentation", new IMAGE_BRUSH("Documentation", Icon16x16));
 
 	{
-		Style->Set("ClassIcon.GameplayAbility", new IMAGE_BRUSH("Ability_64x", Icon16x16));
 		Style->Set("ClassThumbnail.GameplayAbility", new IMAGE_BRUSH("Ability_64x", Icon16x16));
 		Style->Set("ClassIcon.GameplayEffect", new IMAGE_BRUSH("Effect_64x", Icon16x16));
 		Style->Set("ClassThumbnail.GameplayEffect", new IMAGE_BRUSH("Effect_64x", Icon16x16));

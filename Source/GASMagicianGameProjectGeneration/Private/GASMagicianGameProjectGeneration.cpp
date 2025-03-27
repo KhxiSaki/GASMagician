@@ -182,6 +182,16 @@ void FGASMagicianGameProjectGenerationModule::RegisterComboMenus() const
 		{
 			FPlatformProcess::LaunchURL(TEXT("https://discord.gg/M2K8mnm9f7"), nullptr, nullptr);
 		}
+
+		static void OpenGithub()
+		{
+			FPlatformProcess::LaunchURL(TEXT("https://github.com/KhxiSaki/GASMagician"), nullptr, nullptr);
+		}
+
+		static void OpenDocumentation()
+		{
+			FPlatformProcess::LaunchURL(TEXT("https://creationartstudios.gitbook.io/gcc-2.6/"), nullptr, nullptr);
+		}
 	};
 
 	{
@@ -191,8 +201,19 @@ void FGASMagicianGameProjectGenerationModule::RegisterComboMenus() const
 			"GASMagicianNewMVVMModelBaseClass",
 			LOCTEXT("AddMVVMModelBaseClass", "ModelViewViewModel Wizard"),
 			FText::Format(LOCTEXT("AddMVVMModelBaseClassTooltip", "Adds C++ MVVMModelBase code to the project. The code can only be compiled if you have {0} installed."), ShortIDEName),
-			FSlateIcon(FAppStyle::GetAppStyleSetName(), "MainFrame.AddCodeToProject"),
+			FSlateIcon(FGSMEditorStyle::GetStyleSetName(), "Icons.MVVM"),
 			FUIAction(FExecuteAction::CreateStatic(&Local::OpenMVVMModelClassWizard))
+		);
+	}
+
+	{
+		FToolMenuSection& Section = Menu->AddSection("Support", LOCTEXT("SupportHeading", "Support"));
+		Section.AddMenuEntry(
+			"GASMagicianGithub",
+			LOCTEXT("GASMagicianGithub", "Github"),
+			LOCTEXT("GASMagicianGithubToolTip", "Github for support or chat with the community of GAS Magician users"),
+			FSlateIcon(FGSMEditorStyle::GetStyleSetName(), "Icons.Github"),
+			FUIAction(FExecuteAction::CreateStatic(&Local::OpenGithub))
 		);
 	}
 
@@ -204,6 +225,18 @@ void FGASMagicianGameProjectGenerationModule::RegisterComboMenus() const
 			LOCTEXT("GASMagicianDiscordToolTip", "Join the Discord Server for support or chat with the community of GAS Magician users"),
 			FSlateIcon(FGSMEditorStyle::GetStyleSetName(), "Icons.Discord"),
 			FUIAction(FExecuteAction::CreateStatic(&Local::OpenDiscord))
+		);
+	}
+
+
+	{
+		FToolMenuSection& Section = Menu->AddSection("Support", LOCTEXT("SupportHeading", "Support"));
+		Section.AddMenuEntry(
+			"GASMagicianDocumentation",
+			LOCTEXT("GASMagicianDocumentation", "Documentation"),
+			LOCTEXT("GASMagicianDocumentationToolTip", "Documentation for support or chat with the community of GAS Magician users"),
+			FSlateIcon(FGSMEditorStyle::GetStyleSetName(), "Icons.Documentation"),
+			FUIAction(FExecuteAction::CreateStatic(&Local::OpenDocumentation))
 		);
 	}
 }
