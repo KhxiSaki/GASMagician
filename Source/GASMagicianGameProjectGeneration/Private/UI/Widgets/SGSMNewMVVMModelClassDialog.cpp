@@ -128,11 +128,7 @@ void SGSMNewMVVMModelClassDialog::Construct(const FArguments& InArgs)
 	[
 		SNew(SBorder)
 		.Padding(18)
-#if ENGINE_MAJOR_VERSION == 5 && ENGINE_MINOR_VERSION >= 1
 		.BorderImage(FAppStyle::GetBrush("Docking.Tab.ContentAreaBrush"))
-#else
-		.BorderImage(FEditorStyle::GetBrush("Docking.Tab.ContentAreaBrush"))
-#endif
 		[
 			SAssignNew(MainWizard, SWizard)
 			.ShowPageList(false)
@@ -161,11 +157,11 @@ void SGSMNewMVVMModelClassDialog::Construct(const FArguments& InArgs)
 				// Title
 				+SVerticalBox::Slot()
 				.AutoHeight()
-				.Padding(0)
+				.Padding(0, 0, 0, 4) // Reduced bottom padding
 				[
 					SNew(STextBlock)
 					.TextStyle(FGSMEditorStyle::Get(), "NewClassDialog.PageTitle")
-					.Text(LOCTEXT("NameAttributeSetClassTitle", "Name Your New MVVM Model Base"))
+					.Text(LOCTEXT("NameMVVMModelBaseClassTitle", "Name Your New MVVM Model Base"))
 				]
 
 				// Title spacer
@@ -174,6 +170,7 @@ void SGSMNewMVVMModelClassDialog::Construct(const FArguments& InArgs)
 				.Padding(0, 2, 0, 8)
 				[
 					SNew(SSeparator)
+					.Thickness(2.0f)
 				]
 
 				+SVerticalBox::Slot()
@@ -200,24 +197,28 @@ void SGSMNewMVVMModelClassDialog::Construct(const FArguments& InArgs)
 				]
 
 				// Name Error label
-				+SVerticalBox::Slot()
-				.AutoHeight()
-				.Padding(0, 5)
-				[
-					// Constant height, whether the label is visible or not
-					SNew(SBox).HeightOverride(20)
-					[
-						SNew(SBorder)
-						.Visibility(this, &SGSMNewMVVMModelClassDialog::GetNameErrorLabelVisibility)
-						.BorderImage(FGSMEditorStyle::Get().GetBrush("NewClassDialog.ErrorLabelBorder"))
-						.Content()
-						[
-							SNew(STextBlock)
-							.Text(this, &SGSMNewMVVMModelClassDialog::GetNameErrorLabelText)
-							.TextStyle(FGSMEditorStyle::Get(), "NewClassDialog.ErrorLabelFont")
-						]
-					]
-				]
+		+SVerticalBox::Slot()
+		.AutoHeight()
+		.Padding(0, 5)
+		[
+			SNew(SHorizontalBox)
+			.Visibility(this, &SGSMNewMVVMModelClassDialog::GetNameErrorLabelVisibility)
+			+SHorizontalBox::Slot()
+			.AutoWidth()
+			.Padding(0, 0, 4, 0)
+			[
+				SNew(SImage)
+				.Image(FAppStyle::GetBrush("Icons.Error"))
+				.ColorAndOpacity(FLinearColor(0.9f, 0.2f, 0.2f))
+			]
+			+SHorizontalBox::Slot()
+			[
+				SNew(STextBlock)
+				.Text(this, &SGSMNewMVVMModelClassDialog::GetNameErrorLabelText)
+				.TextStyle(FAppStyle::Get(), "NormalText.Important")
+				.ColorAndOpacity(FLinearColor::Red)
+			]
+		]
 
 				// Properties
 				+SVerticalBox::Slot()
@@ -268,6 +269,7 @@ void SGSMNewMVVMModelClassDialog::Construct(const FArguments& InArgs)
 										SAssignNew(ClassNameEditBox, SEditableTextBox)
 										.Text(this, &SGSMNewMVVMModelClassDialog::OnGetClassNameText)
 										.OnTextChanged(this, &SGSMNewMVVMModelClassDialog::OnClassNameTextChanged)
+										.HintText(LOCTEXT("ClassNameHint", "Enter Class Name"))
 									]
 
 									+SHorizontalBox::Slot()
