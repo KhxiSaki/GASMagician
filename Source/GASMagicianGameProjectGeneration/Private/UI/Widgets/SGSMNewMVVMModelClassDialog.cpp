@@ -20,6 +20,12 @@
 #include "Widgets/Layout/SSeparator.h"
 #include "Widgets/Notifications/SNotificationList.h"
 #include "Widgets/Workflow/SWizard.h"
+#include "Framework/Application/SlateApplication.h"
+#include "Misc/App.h"
+#include "Widgets/Input/SButton.h"
+#include "Widgets/Images/SImage.h"
+#include "Misc/Paths.h"
+#include "Windows/WindowsPlatformApplicationMisc.h"
 
 #define LOCTEXT_NAMESPACE "GASMagicianGameProjectGeneration"
 
@@ -380,14 +386,15 @@ void SGSMNewMVVMModelClassDialog::Construct(const FArguments& InArgs)
 						]
 					]
 				]
-
+				
 				// Header output
 				+ SVerticalBox::Slot()
 				.VAlign(VAlign_Center)
 				.AutoHeight()
-				.Padding(12.0f,16.0f, 0.0f, 0.0f)
+				.Padding(12.0f, 16.0f, 12.0f, 0.0f)
 				[
 					SNew(SHorizontalBox)
+					.ToolTipText(this, &SGSMNewMVVMModelClassDialog::OnGetClassHeaderFileText)
 
 					// Header output label
 					+ SHorizontalBox::Slot()
@@ -396,62 +403,116 @@ void SGSMNewMVVMModelClassDialog::Construct(const FArguments& InArgs)
 					.AutoWidth()
 					[
 						SNew(STextBlock)
-						.TextStyle(FGSMEditorStyle::Get(), "NewClassDialog.SelectedParentClassLabel")
+						.TextStyle(FAppStyle::Get(), "NormalText.Important")
 						.Text(LOCTEXT("HeaderFileLabel", "Header File"))
 					]
 
 					// Header output text
 					+ SHorizontalBox::Slot()
 					.VAlign(VAlign_Center)
-					.HAlign(HAlign_Left)
-					.AutoWidth()
+					.HAlign(HAlign_Fill)
 					[
-						SNew(SBox)
-						.VAlign(VAlign_Center)
-						.HeightOverride(EditableTextHeight)
+						SNew(SBorder)
+						.Padding(4.0f)
+						.BorderImage(FAppStyle::GetBrush("ToolPanel.GroupBorder"))
 						[
-							SNew(STextBlock)
-							.Text(this, &SGSMNewMVVMModelClassDialog::OnGetClassHeaderFileText)
+							SNew(SHorizontalBox)
+
+							+ SHorizontalBox::Slot()
+							.VAlign(VAlign_Center)
+							.Padding(4, 0)
+							[
+								SNew(STextBlock)
+								.Text(this, &SGSMNewMVVMModelClassDialog::OnGetClassHeaderFileText)
+								.Font(FAppStyle::GetFontStyle("SmallFont"))
+								.ColorAndOpacity(FSlateColor::UseSubduedForeground())
+								.OverflowPolicy(ETextOverflowPolicy::Ellipsis)
+							]
+
+							+ SHorizontalBox::Slot()
+							.AutoWidth()
+							.Padding(4, 0)
+							[
+								//@TODO: Add a proper icon for copying file path
+								SNew(SButton)
+								.ButtonStyle(FAppStyle::Get(), "SimpleButton")
+								.ToolTipText(LOCTEXT("CopyHeaderPathTooltip", "Copy header file path to clipboard"))
+								.OnClicked_Lambda([this]() {
+									FPlatformApplicationMisc::ClipboardCopy(*CalculatedClassHeaderName);
+									return FReply::Handled();})
+								[
+									SNew(SImage)
+									.Image(FAppStyle::GetBrush("Icons.Copy"))
+									.ColorAndOpacity(FSlateColor::UseForeground())
+								]
+							]
 						]
 					]
 				]
 
-				// Source output
-				+ SVerticalBox::Slot()
-				.AutoHeight()
+// Source output
++ SVerticalBox::Slot()
+.AutoHeight()
+.Padding(12.0f, 8.0f, 12.0f, 0.0f) // Consistent horizontal padding
+[
+    SNew(SHorizontalBox)
+    .ToolTipText(this, &SGSMNewMVVMModelClassDialog::OnGetClassSourceFileText)
 
-				.VAlign(VAlign_Center)
-				.Padding(12.0f,8.0f, 0.0f, 0.0f)
-				[
-					SNew(SHorizontalBox)
+    // Source output label
+    + SHorizontalBox::Slot()
+    .VAlign(VAlign_Center)
+    .Padding(0.0f, 0.0f, 12.f, 0.f)
+    .AutoWidth()
+    [
+        SNew(STextBlock)
+        .TextStyle(FAppStyle::Get(), "NormalText.Important")
+        .Text(LOCTEXT("SourceFileLabel", "Source File"))
+    ]
 
-					// Source output label
-					+ SHorizontalBox::Slot()
-					.VAlign(VAlign_Center)
-					.Padding(0.0f, 0.0f, 12.f, 0.f)
-					.AutoWidth()
-					[
-						SNew(STextBlock)
-						.TextStyle(FGSMEditorStyle::Get(), "NewClassDialog.SelectedParentClassLabel")
-						.Text(LOCTEXT("SourceFileLabel", "Source File"))
-					]
+    // Source output text
+    + SHorizontalBox::Slot()
+    .VAlign(VAlign_Center)
+    .HAlign(HAlign_Fill)
+    [
+        SNew(SBorder)
+        .Padding(4.0f)
+        .BorderImage(FAppStyle::GetBrush("ToolPanel.GroupBorder"))
+        [
+            SNew(SHorizontalBox)
 
-					// Source output text
-					+ SHorizontalBox::Slot()
-					.VAlign(VAlign_Center)
-					.HAlign(HAlign_Left)
-					.AutoWidth()
-					[
-						SNew(SBox)
-						.VAlign(VAlign_Center)
-						.HeightOverride(EditableTextHeight)
-						[
-							SNew(STextBlock)
-							.Text(this, &SGSMNewMVVMModelClassDialog::OnGetClassSourceFileText)
-						]
-					]
-				]
+            + SHorizontalBox::Slot()
+            .VAlign(VAlign_Center)
+            .Padding(4, 0)
+            [
+                SNew(STextBlock)
+                .Text(this, &SGSMNewMVVMModelClassDialog::OnGetClassSourceFileText)
+                .Font(FAppStyle::GetFontStyle("SmallFont"))
+                .ColorAndOpacity(FSlateColor::UseSubduedForeground())
+                .OverflowPolicy(ETextOverflowPolicy::Ellipsis)
+            ]
 
+            + SHorizontalBox::Slot()
+            .AutoWidth()
+            .Padding(4, 0)
+            [
+            	//@TODO: Add a proper icon for copying file path
+                SNew(SButton)
+                .ToolTipText(LOCTEXT("CopySourcePathTooltip", "Copy source file path to clipboard"))
+                .ButtonStyle(FAppStyle::Get(), "SimpleButton")
+                .ToolTipText(LOCTEXT("CopySourcePathTooltip", "Copy source file path to clipboard"))
+                .OnClicked_Lambda([this]() {
+                    FPlatformApplicationMisc::ClipboardCopy(*CalculatedClassSourceName);
+                    return FReply::Handled();
+                })
+                [
+                    SNew(SImage)
+                    .Image(FAppStyle::GetBrush("Icons.Copy"))
+                    .ColorAndOpacity(FSlateColor::UseForeground())
+                ]
+            ]
+        ]
+    ]
+]
 				// Title
 				+SVerticalBox::Slot()
 				.AutoHeight()
