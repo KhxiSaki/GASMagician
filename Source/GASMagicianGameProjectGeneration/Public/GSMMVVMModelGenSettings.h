@@ -14,7 +14,7 @@ class UGSMMVVMModelAttributesGenSettings : public UObject
 
 public:
 	UPROPERTY(EditAnywhere, Category = "GASMagician MVVM Generation", Meta = (ShowOnlyInnerProperties))
-	FGSCMVVMAttributesSettings Settings;
+	FGSMViewModelPropertiesSettings Settings;
 
 	static UGSMMVVMModelAttributesGenSettings* Get()
     {

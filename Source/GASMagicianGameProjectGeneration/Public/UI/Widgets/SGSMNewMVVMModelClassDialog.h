@@ -74,7 +74,7 @@ private:
 
 	/** If non-empty, overrides the default name of the class, when the user doesn't type a new name.  Defaults to empty, which causes the
 	name to be the inherited class name. Note that DefaultClassPrefix is still prepended to this name, if non-empty. */
-	FString DefaultClassName = FString("MVVMModelBase");
+	FString DefaultClassName = FString("ViewModelBase");
 
 	/** The path to place the files for the class being generated */
 	FString NewClassPath;

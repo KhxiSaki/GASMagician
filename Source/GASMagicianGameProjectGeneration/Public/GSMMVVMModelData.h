@@ -4,33 +4,32 @@
 #include "GSMMVVMModelData.generated.h"
 
 USTRUCT()
-struct FGSCMVVMAttributeDefinition
+struct FGSMViewModelPropertyDefinition
 {
 	GENERATED_BODY()
 
 public:
-	/** The MVVM Attribute name you want to generate */
-	UPROPERTY(EditAnywhere, Category = "Attributes")
-	FString AttributeName;
+	/** The ViewModel property name that will be exposed for data binding */
+	UPROPERTY(EditAnywhere, Category = "ViewModel")
+	FString PropertyName;
 
-	/** The UPROPERTY Category specifier for this attribute */
-	UPROPERTY(EditAnywhere, Category = "Attributes")
+	/** The category for organization in Blueprints */
+	UPROPERTY(EditAnywhere, Category = "ViewModel")
 	FString Category;
 };
 
 USTRUCT()
-struct FGSCMVVMAttributesSettings
+struct FGSMViewModelPropertiesSettings
 {
 	GENERATED_BODY()
 
 public:
+	/** Define the observable properties for your ViewModel */
+	UPROPERTY(EditAnywhere, Category = "ViewModel")
+	TArray<FGSMViewModelPropertyDefinition> Properties;
 
-	/** Define here any number of MVVM Attribute you want to generate (at least one) */
-	UPROPERTY(EditAnywhere, Category = "Attributes")
-	TArray<FGSCMVVMAttributeDefinition> Attributes;
-
-	bool HasAnyAttributes() const
+	bool HasAnyProperties() const
 	{
-		return Attributes.Num() > 0;
+		return Properties.Num() > 0;
 	}
 };

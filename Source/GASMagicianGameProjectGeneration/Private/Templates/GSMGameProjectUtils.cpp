@@ -380,12 +380,12 @@ bool FGSMGameProjectUtils::PrepareTemplate(const FNewClassInfo ParentClassInfo, 
 		
 
 			auto const& MVVMSettings = UGSMMVVMModelAttributesGenSettings::Get()->Settings;
-			if (!UGSMMVVMModelBaseClassTemplate::PrepareHeaderTemplate(MVVMSettings.Attributes, HeaderTemplate, OutFailReason))
+			if (!UGSMMVVMModelBaseClassTemplate::PrepareHeaderTemplate(MVVMSettings.Properties, HeaderTemplate, OutFailReason))
 			{
 				return false;
 			}
 
-			if (!UGSMMVVMModelBaseClassTemplate::PrepareSourceTemplate(MVVMSettings.Attributes, SourceTemplate, OutFailReason))
+			if (!UGSMMVVMModelBaseClassTemplate::PrepareSourceTemplate(MVVMSettings.Properties, SourceTemplate, OutFailReason))
 			{
 				return false;
 			}

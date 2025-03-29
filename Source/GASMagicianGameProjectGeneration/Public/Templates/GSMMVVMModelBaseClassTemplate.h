@@ -33,28 +33,28 @@ public:
 	 *
 	 * Writes output to disk to replace this ClassTemplate file (ResetTemplate() will restore to original value)
 	 */
-	static bool PrepareHeaderTemplate(TArray<FGSCMVVMAttributeDefinition> Attributes, FString TemplateText, FText& OutFailReason);
+	static bool PrepareHeaderTemplate(TArray<FGSMViewModelPropertyDefinition> Attributes, FString TemplateText, FText& OutFailReason);
 
 	/**
 	 * Prepare Header Class Template by replacing all special %% placeholders not handled by GameProjectUtils, namely for Attribute properties generation.
 	 *
 	 * Writes output to disk to replace this ClassTemplate file (ResetTemplate() will restore to original value)
 	 */
-	static bool PrepareSourceTemplate(TArray<FGSCMVVMAttributeDefinition> Attributes, FString TemplateText, FText& OutFailReason);
+	static bool PrepareSourceTemplate(TArray<FGSMViewModelPropertyDefinition> Attributes, FString TemplateText, FText& OutFailReason);
 
 	/** Restores Class Template files (.h and .cpp) to their original content */
 	static bool ResetTemplates(FText &OutFailReason);
 
 	/** Replace all AttributeSet specific placeholders in provided OutTemplateText */
-	static bool ReplaceAttributePlaceholder(TArray<FGSCMVVMAttributeDefinition> Attributes, FString& OutTemplateText, FText& OutFailReason);
+	static bool ReplaceAttributePlaceholder(TArray<FGSMViewModelPropertyDefinition> Attributes, FString& OutTemplateText, FText& OutFailReason);
 
 	/** Returns chunk of GameplayAttributes declaration comprised of all the elements in InAttributesList.*/
-	static FString MakeAttributesDeclaration(TArray<FGSCMVVMAttributeDefinition> InAttributesList);
+	static FString MakeAttributesDeclaration(TArray<FGSMViewModelPropertyDefinition> InAttributesList);
 
-	static FString MakeAttributesOnRepDeclaration(TArray<FGSCMVVMAttributeDefinition> InAttributesList);
+	static FString MakeAttributesOnRepDeclaration(TArray<FGSMViewModelPropertyDefinition> InAttributesList);
 
 	/** Returns chunk of GameplayAttributes OnRep function definitions comprised of all the elements in InAttributesList.*/
-	static FString MakeAttributesOnRepDefinition(TArray<FGSCMVVMAttributeDefinition> InAttributesList);
+	static FString MakeAttributesOnRepDefinition(TArray<FGSMViewModelPropertyDefinition> InAttributesList);
 
 	/** Returns the contents of the specified template file */
 	static bool ReadTemplateFile(const FString& TemplateFileName, FString& OutFileContents, FText& OutFailReason);

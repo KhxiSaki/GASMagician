@@ -33,7 +33,7 @@ FString UGSMMVVMModelBaseClassTemplate::GetPluginTemplateDirectory()
 	return UClassTemplateEditorSubsystem::GetEngineTemplateDirectory();
 }
 
-bool UGSMMVVMModelBaseClassTemplate::PrepareHeaderTemplate(TArray<FGSCMVVMAttributeDefinition> Attributes, FString TemplateText, FText& OutFailReason)
+bool UGSMMVVMModelBaseClassTemplate::PrepareHeaderTemplate(TArray<FGSMViewModelPropertyDefinition> Attributes, FString TemplateText, FText& OutFailReason)
 {
 	const bool bReplaceDone = ReplaceAttributePlaceholder(Attributes, TemplateText, OutFailReason);
 	if (!bReplaceDone)
@@ -46,7 +46,7 @@ bool UGSMMVVMModelBaseClassTemplate::PrepareHeaderTemplate(TArray<FGSCMVVMAttrib
 	return WriteOutputFile(OutputFilename, TemplateText, OutFailReason);
 }
 
-bool UGSMMVVMModelBaseClassTemplate::PrepareSourceTemplate(TArray<FGSCMVVMAttributeDefinition> Attributes, FString TemplateText, FText& OutFailReason)
+bool UGSMMVVMModelBaseClassTemplate::PrepareSourceTemplate(TArray<FGSMViewModelPropertyDefinition> Attributes, FString TemplateText, FText& OutFailReason)
 {
 	const bool bReplaceDone = ReplaceAttributePlaceholder(Attributes, TemplateText, OutFailReason);
 	if (!bReplaceDone)
@@ -84,7 +84,7 @@ bool UGSMMVVMModelBaseClassTemplate::ResetTemplates(FText& OutFailReason)
 	return WriteOutputFile(OutputSourceFilename, OriginalSourceTemplate, OutFailReason);
 }
 
-bool UGSMMVVMModelBaseClassTemplate::ReplaceAttributePlaceholder(const TArray<FGSCMVVMAttributeDefinition> Attributes, FString& OutTemplateText, FText& OutFailReason)
+bool UGSMMVVMModelBaseClassTemplate::ReplaceAttributePlaceholder(const TArray<FGSMViewModelPropertyDefinition> Attributes, FString& OutTemplateText, FText& OutFailReason)
 {
 
 	FString AttributeDeclarationTemplate;
@@ -113,7 +113,7 @@ bool UGSMMVVMModelBaseClassTemplate::ReplaceAttributePlaceholder(const TArray<FG
 	return true;
 }
 
-FString UGSMMVVMModelBaseClassTemplate::MakeAttributesDeclaration(TArray<FGSCMVVMAttributeDefinition> InAttributesList)
+FString UGSMMVVMModelBaseClassTemplate::MakeAttributesDeclaration(TArray<FGSMViewModelPropertyDefinition> InAttributesList)
 {
 	FText FailReason;
 	FString Template;
@@ -123,9 +123,9 @@ FString UGSMMVVMModelBaseClassTemplate::MakeAttributesDeclaration(TArray<FGSCMVV
 	}
 
 	TArray<FString> Outputs;
-	for (FGSCMVVMAttributeDefinition Attribute : InAttributesList)
+	for (FGSMViewModelPropertyDefinition Attribute : InAttributesList)
 	{
-		FString Output = Template.Replace(TEXT("%ATTRIBUTE_NAME%"), *Attribute.AttributeName, ESearchCase::CaseSensitive);
+		FString Output = Template.Replace(TEXT("%ATTRIBUTE_NAME%"), *Attribute.PropertyName, ESearchCase::CaseSensitive);
 		Output = Output.Replace(TEXT("%ATTRIBUTE_CATEGORY%"), *Attribute.Category, ESearchCase::CaseSensitive);
 		Outputs.Add(Output);
 	}
@@ -133,7 +133,7 @@ FString UGSMMVVMModelBaseClassTemplate::MakeAttributesDeclaration(TArray<FGSCMVV
 	return FString::Join(Outputs, LINE_TERMINATOR);
 }
 
-FString UGSMMVVMModelBaseClassTemplate::MakeAttributesOnRepDeclaration(TArray<FGSCMVVMAttributeDefinition> InAttributesList)
+FString UGSMMVVMModelBaseClassTemplate::MakeAttributesOnRepDeclaration(TArray<FGSMViewModelPropertyDefinition> InAttributesList)
 {
 	FText FailReason;
 	FString Template;
@@ -143,9 +143,9 @@ FString UGSMMVVMModelBaseClassTemplate::MakeAttributesOnRepDeclaration(TArray<FG
 	}
 
 	TArray<FString> Outputs;
-	for (FGSCMVVMAttributeDefinition Attribute : InAttributesList)
+	for (FGSMViewModelPropertyDefinition Attribute : InAttributesList)
 	{
-		FString Output = Template.Replace(TEXT("%ATTRIBUTE_NAME%"), *Attribute.AttributeName, ESearchCase::CaseSensitive);
+		FString Output = Template.Replace(TEXT("%ATTRIBUTE_NAME%"), *Attribute.PropertyName, ESearchCase::CaseSensitive);
 		Output = Output.Replace(TEXT("%ATTRIBUTE_CATEGORY%"), *Attribute.Category, ESearchCase::CaseSensitive);
 		Outputs.Add(Output);
 	}
@@ -153,7 +153,7 @@ FString UGSMMVVMModelBaseClassTemplate::MakeAttributesOnRepDeclaration(TArray<FG
 	return FString::Join(Outputs, LINE_TERMINATOR);
 }
 
-FString UGSMMVVMModelBaseClassTemplate::MakeAttributesOnRepDefinition(TArray<FGSCMVVMAttributeDefinition> InAttributesList)
+FString UGSMMVVMModelBaseClassTemplate::MakeAttributesOnRepDefinition(TArray<FGSMViewModelPropertyDefinition> InAttributesList)
 {
 	FText FailReason;
 	FString Template;
@@ -163,9 +163,9 @@ FString UGSMMVVMModelBaseClassTemplate::MakeAttributesOnRepDefinition(TArray<FGS
 	}
 
 	TArray<FString> Outputs;
-	for (FGSCMVVMAttributeDefinition Attribute : InAttributesList)
+	for (FGSMViewModelPropertyDefinition Attribute : InAttributesList)
 	{
-		FString Output = Template.Replace(TEXT("%ATTRIBUTE_NAME%"), *Attribute.AttributeName, ESearchCase::CaseSensitive);
+		FString Output = Template.Replace(TEXT("%ATTRIBUTE_NAME%"), *Attribute.PropertyName, ESearchCase::CaseSensitive);
 		Outputs.Add(Output);
 	}
 

@@ -167,7 +167,8 @@ void SGSMNewMVVMModelClassDialog::Construct(const FArguments& InArgs)
 				[
 					SNew(STextBlock)
 					.TextStyle(FGSMEditorStyle::Get(), "NewClassDialog.PageTitle")
-					.Text(LOCTEXT("NameMVVMModelBaseClassTitle", "Name Your New MVVM Model Base"))
+					.Text(LOCTEXT("NameViewModelClassTitle", "Name Your ViewModel Class"))
+					.ToolTipText(LOCTEXT("FinishButtonToolTip_Native", "Creates the ViewModel class files"))
 				]
 
 				// Title spacer
@@ -190,7 +191,7 @@ void SGSMNewMVVMModelClassDialog::Construct(const FArguments& InArgs)
 					.Padding(0, 0, 0, 5)
 					[
 						SNew(STextBlock)
-						.Text(LOCTEXT("ClassNameDescription", "Enter a name for your new class. Class names may only contain alphanumeric characters, and may not contain a space."))
+						.Text(LOCTEXT("ClassNameDescription", "Enter a name for your ViewModel class. Use descriptive names like 'PlayerStatsViewModel' or 'InventoryViewModel'."))
 					]
 
 					+SVerticalBox::Slot()
@@ -198,7 +199,7 @@ void SGSMNewMVVMModelClassDialog::Construct(const FArguments& InArgs)
 					.Padding(0, 0, 0, 2)
 					[
 						SNew(STextBlock)
-						.Text(LOCTEXT("ClassNameDetails_Native", "When you click the \"Create\" button below, a header (.h) file and a source (.cpp) file will be made using this name."))
+						.Text(LOCTEXT("ClassNameDetails_Native", "This will generate matching .h and .cpp files containing your ViewModel class skeleton"))
 					]
 				]
 
@@ -284,7 +285,7 @@ void SGSMNewMVVMModelClassDialog::Construct(const FArguments& InArgs)
 									[
 										SAssignNew(AvailableModulesCombo, SComboBox<TSharedPtr<FModuleContextInfo>>)
 										// .Visibility(ClassDomain == EClassDomain::Blueprint ? EVisibility::Collapsed : EVisibility::Visible)
-										.ToolTipText(LOCTEXT("ModuleComboToolTip", "Choose the target module for your new class"))
+										.ToolTipText(LOCTEXT("ModuleComboToolTip", "Select which module will contain your ViewModel class"))
 										.OptionsSource(&AvailableModules)
 										.InitiallySelectedItem(SelectedModuleInfo)
 										.OnSelectionChanged(this, &SGSMNewMVVMModelClassDialog::SelectedModuleComboBoxSelectionChanged)
@@ -436,7 +437,7 @@ void SGSMNewMVVMModelClassDialog::Construct(const FArguments& InArgs)
 								//@TODO: Add a proper icon for copying file path
 								SNew(SButton)
 								.ButtonStyle(FAppStyle::Get(), "SimpleButton")
-								.ToolTipText(LOCTEXT("CopyHeaderPathTooltip", "Copy header file path to clipboard"))
+								.ToolTipText(LOCTEXT("CopyHeaderPathTooltip", "Copy header file path for ViewModel class"))
 								.OnClicked_Lambda([this]() {
 									FPlatformApplicationMisc::ClipboardCopy(*CalculatedClassHeaderName);
 									return FReply::Handled();})
@@ -497,9 +498,8 @@ void SGSMNewMVVMModelClassDialog::Construct(const FArguments& InArgs)
             [
             	//@TODO: Add a proper icon for copying file path
                 SNew(SButton)
-                .ToolTipText(LOCTEXT("CopySourcePathTooltip", "Copy source file path to clipboard"))
+            	.ToolTipText(LOCTEXT("CopySourcePathTooltip", "Copy source file path for ViewModel class"))
                 .ButtonStyle(FAppStyle::Get(), "SimpleButton")
-                .ToolTipText(LOCTEXT("CopySourcePathTooltip", "Copy source file path to clipboard"))
                 .OnClicked_Lambda([this]() {
                     FPlatformApplicationMisc::ClipboardCopy(*CalculatedClassSourceName);
                     return FReply::Handled();
@@ -520,7 +520,7 @@ void SGSMNewMVVMModelClassDialog::Construct(const FArguments& InArgs)
 				[
 					SNew(STextBlock)
 					.TextStyle(FGSMEditorStyle::Get(), "GASMagicianGameProjectGeneration.h2")
-					.Text(LOCTEXT("MVVMModelAttributesTitle", "MVVM Model"))
+					.Text(LOCTEXT("ViewModelPropertiesTitle", "ViewModel Properties"))
 				]
 
 				// Title spacer
@@ -542,7 +542,7 @@ void SGSMNewMVVMModelClassDialog::Construct(const FArguments& InArgs)
 					.Padding(0, 0, 0, 5)
 					[
 						SNew(STextBlock)
-						.Text(LOCTEXT("MVVMAttributesDescription_01", "Define any number of MVVM Attributes here. Attributes names may only contain alphanumeric characters, and may not contain a space."))
+						.Text(LOCTEXT("MVVMAttributesDescription_01", "Define your ViewModel properties here. These will generate notification logic for data binding"))
 					]
 
 					+SVerticalBox::Slot()
@@ -550,7 +550,7 @@ void SGSMNewMVVMModelClassDialog::Construct(const FArguments& InArgs)
 					.Padding(0, 0, 0, 2)
 					[
 						SNew(STextBlock)
-						.Text(LOCTEXT("MVVMAttributesDescription_02", "At least one MVVM Attribute must be defined and it may not contain any duplicate names."))
+						.Text(LOCTEXT("MVVMAttributesDescription_02", "Each property must have a unique name and will be created as BlueprintReadOnly fields"))
 					]
 				]
 
@@ -653,33 +653,33 @@ void SGSMNewMVVMModelClassDialog::UpdateInputValidity()
 	// Validate the Attributes
 	if (bLastInputValidityCheckSuccessful)
 	{
-		const FGSCMVVMAttributesSettings& Settings = UGSMMVVMModelAttributesGenSettings::Get()->Settings;
+		const FGSMViewModelPropertiesSettings& Settings = UGSMMVVMModelAttributesGenSettings::Get()->Settings;
 
 		// Must have at least one attribute
-		if (!Settings.HasAnyAttributes())
+		if (!Settings.HasAnyProperties())
 		{
-			LastInputValidityErrorText = LOCTEXT("ValidationErrorAttributes", "Please, provide at least one MVVM Attribute definition");
+			LastInputValidityErrorText = LOCTEXT("ValidationErrorAttributes", "At least one ViewModel property must be defined");
 			bLastInputValidityCheckSuccessful = false;
 		}
 
 		// look for duplicates
-		TArray<FString> AttributeNames;
-		for (FGSCMVVMAttributeDefinition Attribute : Settings.Attributes)
+		TArray<FString> PropertiesNames;
+		for (FGSMViewModelPropertyDefinition Property : Settings.Properties)
 		{
-			if (bLastInputValidityCheckSuccessful && !IsValidAttributeNameForCreation(Attribute.AttributeName, LastInputValidityErrorText))
+			if (bLastInputValidityCheckSuccessful && !IsValidAttributeNameForCreation(Property.PropertyName, LastInputValidityErrorText))
 			{
 				bLastInputValidityCheckSuccessful = false;
 			}
 
-			if (bLastInputValidityCheckSuccessful && AttributeNames.Contains(Attribute.AttributeName))
+			if (bLastInputValidityCheckSuccessful && PropertiesNames.Contains(Property.PropertyName))
 			{
 				FFormatNamedArguments Args;
-				Args.Add(TEXT("NewMVVMAttributeName"), FText::FromString(Attribute.AttributeName));
-				LastInputValidityErrorText = FText::Format(LOCTEXT("ValidationErrorAttributeNameDuplicates", "The name {NewMVVMAttributeName} is already used by another MVVM attribute."), Args);
+				Args.Add(TEXT("NewMVVMAttributeName"), FText::FromString(Property.PropertyName));
+				LastInputValidityErrorText = FText::Format(LOCTEXT("ValidationErrorAttributeNameDuplicates", "Property name '{NewMVVMAttributeName}' is already used"), Args);
 				bLastInputValidityCheckSuccessful = false;
 			}
 
-			AttributeNames.Add(Attribute.AttributeName);
+			PropertiesNames.Add(Property.PropertyName);
 		}
 	}
 
@@ -751,13 +751,14 @@ bool SGSMNewMVVMModelClassDialog::IsValidAttributeNameForCreation(const FString&
 
 	if (NewAttributeName.Contains(TEXT(" ")))
 	{
-		OutFailReason = LOCTEXT("MVVMAttributeNameContainsSpace", "Your attribute name may not contain a space.");
+		OutFailReason = LOCTEXT("MVVMAttributeNameContainsSpace", "ViewModel property names cannot contain spaces");
+;
 		return false;
 	}
 
 	if (!FChar::IsAlpha(NewAttributeName[0]))
 	{
-		OutFailReason = LOCTEXT("MVVMAttributeNameMustBeginWithACharacter", "Your attribute name must begin with an alphabetic character.");
+		OutFailReason = LOCTEXT("MVVMAttributeNameMustBeginWithACharacter", "ViewModel properties must start with a letter");
 		return false;
 	}
 
