@@ -4,6 +4,7 @@
 #include "AttributeSets/GSMAttributeSet.h"
 #include "GameplayEffectExtension.h"
 #include "GameplayTagsManager.h"
+#include "Components/GSMAbilitySystemComponent.h"
 #include "ModularGameplayActors/GSMModularCharacter.h"
 #include "Net/UnrealNetwork.h"
 
@@ -60,7 +61,7 @@ bool UGSMAttributeSet::PreGameplayEffectExecute(struct FGameplayEffectModCallbac
 	// Is Damage about to be applied?
 	if (DamageProperty == ModifiedProperty)
 	{
-		AGSMModularCharacter* MyCharacter = CastChecked<AGSMModularCharacter>(GetOwningActor());
+		AGSMModularCharacter* MyCharacter = CastChecked<AGSMModularCharacter>(GetOwningAbilitySystemComponent()->GetAvatarActor());
 		float NewMagnitude = Data.EvaluatedData.Magnitude;
 		const UGSMAttributeSet* SourceAttributes = Data.EffectSpec.GetContext().GetOriginalInstigatorAbilitySystemComponent()->GetSet<UGSMAttributeSet>();
 
@@ -75,7 +76,7 @@ bool UGSMAttributeSet::PreGameplayEffectExecute(struct FGameplayEffectModCallbac
 
 		if (NewMagnitude > 0.f)
 		{
-			AGSMModularCharacter* DamagedCharacter = Cast<AGSMModularCharacter>(GetOwningActor());
+			AGSMModularCharacter* DamagedCharacter = Cast<AGSMModularCharacter>(GetOwningAbilitySystemComponent()->GetAvatarActor());
 			if (DamagedCharacter)
 			{
 				DamagedCharacter->OnTakeDamage(WhoAttackedUsLast, NewMagnitude);
@@ -149,14 +150,7 @@ void UGSMAttributeSet::PostGameplayEffectExecute(const struct FGameplayEffectMod
 		// Clamp and fall into out of health handling below
 		SetHealth(FMath::Clamp(GetHealth(), MinimumHealth, GetMaxHealth()));
 	}
-
-	if (Data.EvaluatedData.Attribute == GetMaxHealthAttribute())
-	{
-		// TODO clamp current health?
-
-		// Notify on any requested max health changes
-		OnMaxHealthChanged.Broadcast(Instigator, Causer, &Data.EffectSpec, Data.EvaluatedData.Magnitude, MaxHealthBeforeAttributeChange, GetMaxHealth());
-	}
+	
 	
 	// If health has actually changed activate callbacks
 	if (GetHealth() != HealthBeforeAttributeChange)
@@ -227,23 +221,28 @@ void UGSMAttributeSet::PreAttributeChange(const FGameplayAttribute& Attribute, f
 	{
 		AdjustAttributeForMaxChange(Mana, MaxMana, NewValue, GetManaAttribute());
 	}
+	else if (Attribute == GetMaxStaminaAttribute())
+	{
+		AdjustAttributeForMaxChange(Stamina, MaxStamina, NewValue, GetStaminaAttribute());
+	}
 }
 
 void UGSMAttributeSet::PreAttributeBaseChange(const FGameplayAttribute& Attribute, float& NewValue) const
 {
 	Super::PreAttributeBaseChange(Attribute, NewValue);
+	
 }
 
 void UGSMAttributeSet::PostAttributeChange(const FGameplayAttribute& Attribute, float OldValue, float NewValue)
 {
 	Super::PostAttributeChange(Attribute, OldValue, NewValue);
 
-	/*if (Attribute == GetMaxHealthAttribute())
+	if (Attribute == GetMaxHealthAttribute())
 	{
 		// Make sure current health is not greater than the new max health.
 		if (GetHealth() > NewValue)
 		{
-			ULyraAbilitySystemComponent* LyraASC = GetLyraAbilitySystemComponent();
+			UGSMAbilitySystemComponent* LyraASC = Cast<UGSMAbilitySystemComponent>(GetOwningAbilitySystemComponent());
 			check(LyraASC);
 
 			LyraASC->ApplyModToAttribute(GetHealthAttribute(), EGameplayModOp::Override, NewValue);
@@ -253,5 +252,5 @@ void UGSMAttributeSet::PostAttributeChange(const FGameplayAttribute& Attribute, 
 	if (bOutOfHealth && (GetHealth() > 0.0f))
 	{
 		bOutOfHealth = false;
-	}*/
+	}
 }

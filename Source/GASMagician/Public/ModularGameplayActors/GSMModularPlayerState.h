@@ -32,8 +32,8 @@ public:
 	//~ End AActor interface
 
 protected:
-	UPROPERTY()
-	class UGSMAbilitySystemComponent* AbilitySystemComponent;
+	UPROPERTY(Category = AbilitySystem, VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	TObjectPtr<UGSMAbilitySystemComponent> AbilitySystemComponent;
 	
 	//~ Begin APlayerState interface
 	virtual void CopyProperties(APlayerState* PlayerState);

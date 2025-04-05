@@ -53,6 +53,6 @@ public:
 
 protected:
 
-	UPROPERTY()
+	UPROPERTY(Category = AbilitySystem, VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<UGSMAbilitySystemComponent> AbilitySystemComponent;
 };

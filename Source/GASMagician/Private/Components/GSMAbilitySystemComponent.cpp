@@ -105,6 +105,7 @@ void UGSMAbilitySystemComponent::InitAbilityActorInfo(AActor* InOwnerActor, AAct
 		GiveToAbilitySystem(this, &GrantedHandles);
 		TryActivateAbilitiesOnSpawn();
 	}
+	
 }
 
 void UGSMAbilitySystemComponent::TryActivateAbilitiesOnSpawn()
@@ -132,6 +133,7 @@ void UGSMAbilitySystemComponent::BeginDestroy()
 	GrantedHandles.TakeFromAbilitySystem(this);
 	if (!CharacterGameplayTags.IsEmpty())
 	{
+		RemoveLooseGameplayTags(CharacterGameplayTags);
 	}
 	Super::BeginDestroy();
 }
@@ -197,6 +199,29 @@ void UGSMAbilitySystemComponent::GiveToAbilitySystem(UGSMAbilitySystemComponent*
 		return;
 	}
 
+	// Grant the attribute sets.
+	for (int32 SetIndex = 0; SetIndex < GrantedAttributes.Num(); ++SetIndex)
+	{
+		const FGSMAbilitySet_AttributeSet& SetToGrant = GrantedAttributes[SetIndex];
+
+		if (!IsValid(SetToGrant.AttributeSet))
+		{
+			UE_LOG(LogGASMagician, Error, TEXT("GrantedAttributes[%d] on ability set [%s] is not valid"), SetIndex, *GetNameSafe(this));
+			continue;
+		}
+
+		UAttributeSet* NewSet = NewObject<UAttributeSet>(InASC->GetOwner(), SetToGrant.AttributeSet);
+		if (NewSet)
+		{
+			InASC->AddAttributeSetSubobject(NewSet);
+
+			if (OutGrantedHandles)
+			{
+				OutGrantedHandles->AddAttributeSet(NewSet);
+			}
+		}
+	}
+	
 	// Grant the gameplay abilities.
 	for (int32 AbilityIndex = 0; AbilityIndex < GrantedGameplayAbilities.Num(); ++AbilityIndex)
 	{
@@ -210,15 +235,18 @@ void UGSMAbilitySystemComponent::GiveToAbilitySystem(UGSMAbilitySystemComponent*
 
 		UGSMGameplayAbility* AbilityCDO = AbilityToGrant.Ability->GetDefaultObject<UGSMGameplayAbility>();
 
-		FGameplayAbilitySpec AbilitySpec(AbilityCDO, AbilityToGrant.AbilityLevel);
-		AbilitySpec.SourceObject = SourceObject;
-		//AbilitySpec.DynamicAbilityTags.AddTag(AbilityToGrant.InputTag);
-
-		const FGameplayAbilitySpecHandle AbilitySpecHandle = InASC->GiveAbility(AbilitySpec);
-
-		if (OutGrantedHandles)
+		if (AbilityCDO)
 		{
-			OutGrantedHandles->AddAbilitySpecHandle(AbilitySpecHandle);
+			FGameplayAbilitySpec AbilitySpec(AbilityCDO, AbilityToGrant.AbilityLevel);
+			AbilitySpec.SourceObject = SourceObject;
+			//AbilitySpec.DynamicAbilityTags.AddTag(AbilityToGrant.InputTag);
+
+			const FGameplayAbilitySpecHandle AbilitySpecHandle = InASC->GiveAbility(AbilitySpec);
+		
+			if (OutGrantedHandles)
+			{
+				OutGrantedHandles->AddAbilitySpecHandle(AbilitySpecHandle);
+			}
 		}
 	}
 
@@ -233,33 +261,16 @@ void UGSMAbilitySystemComponent::GiveToAbilitySystem(UGSMAbilitySystemComponent*
 			continue;
 		}
 
+		
 		const UGameplayEffect* GameplayEffect = EffectToGrant.GameplayEffect->GetDefaultObject<UGameplayEffect>();
-		const FActiveGameplayEffectHandle GameplayEffectHandle = InASC->ApplyGameplayEffectToSelf(GameplayEffect, EffectToGrant.EffectLevel, InASC->MakeEffectContext());
+		
+			const FActiveGameplayEffectHandle GameplayEffectHandle = InASC->ApplyGameplayEffectToSelf(GameplayEffect, EffectToGrant.EffectLevel, InASC->MakeEffectContext());
 
-		if (OutGrantedHandles)
-		{
-			OutGrantedHandles->AddGameplayEffectHandle(GameplayEffectHandle);
-		}
-	}
-
-	// Grant the attribute sets.
-	for (int32 SetIndex = 0; SetIndex < GrantedAttributes.Num(); ++SetIndex)
-	{
-		const FGSMAbilitySet_AttributeSet& SetToGrant = GrantedAttributes[SetIndex];
-
-		if (!IsValid(SetToGrant.AttributeSet))
-		{
-			UE_LOG(LogGASMagician, Error, TEXT("GrantedAttributes[%d] on ability set [%s] is not valid"), SetIndex, *GetNameSafe(this));
-			continue;
-		}
-
-		UAttributeSet* NewSet = NewObject<UAttributeSet>(InASC->GetOwner(), SetToGrant.AttributeSet);
-		InASC->AddAttributeSetSubobject(NewSet);
-
-		if (OutGrantedHandles)
-		{
-			OutGrantedHandles->AddAttributeSet(NewSet);
-		}
+			if (OutGrantedHandles)
+			{
+				OutGrantedHandles->AddGameplayEffectHandle(GameplayEffectHandle);
+			}
+		
 	}
 
 	//Grant the ability sets
@@ -274,6 +285,7 @@ void UGSMAbilitySystemComponent::GiveToAbilitySystem(UGSMAbilitySystemComponent*
 	//Apply Dynamic Tags
 	if (!CharacterGameplayTags.IsEmpty())
 	{
+		InASC->AddLooseGameplayTags(CharacterGameplayTags);
 		//AddDynamicTagGameplayEffect(CharacterGameplayTags);
 	}
 
