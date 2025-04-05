@@ -1730,3 +1730,162 @@ The Skills section contains lots of examples of how to use the Damage Container,
 # How to Use
 
 In Old Damage system, we have a statics to apply the damage, this is done from the instigator. then in receiving actor, we can call any of tkae damage event such as takedamage,radialdamage and point damage
+
+Here How Old damage pipeline statics:
+```cpp
+/** Hurt locally authoritative actors within the radius. Will only hit components that block the Visibility channel.
+	 * @param BaseDamage - The base damage to apply, i.e. the damage at the origin.
+	 * @param Origin - Epicenter of the damage area.
+	 * @param DamageRadius - Radius of the damage area, from Origin
+	 * @param DamageTypeClass - Class that describes the damage that was done.
+	 * @param IgnoreActors - List of Actors to ignore
+	 * @param DamageCauser - Actor that actually caused the damage (e.g. the grenade that exploded).  This actor will not be damaged and it will not block damage.
+	 * @param InstigatedByController - Controller that was responsible for causing this damage (e.g. player who threw the grenade)
+	 * @param bFullDamage - if true, damage not scaled based on distance from Origin
+	 * @param DamagePreventionChannel - Damage will not be applied to victim if there is something between the origin and the victim which blocks traces on this channel
+	 * @return true if damage was applied to at least one actor.
+	 */
+	UFUNCTION(BlueprintCallable, BlueprintAuthorityOnly, Category="Game|Damage", meta=(WorldContext="WorldContextObject", AutoCreateRefTerm="IgnoreActors"))
+	static ENGINE_API bool ApplyRadialDamage(const UObject* WorldContextObject, float BaseDamage, const FVector& Origin, float DamageRadius, TSubclassOf<class UDamageType> DamageTypeClass, const TArray<AActor*>& IgnoreActors, AActor* DamageCauser = NULL, AController* InstigatedByController = NULL, bool bDoFullDamage = false, ECollisionChannel DamagePreventionChannel = ECC_Visibility);
+	
+	/** Hurt locally authoritative actors within the radius. Will only hit components that block the Visibility channel.
+	 * @param BaseDamage - The base damage to apply, i.e. the damage at the origin.
+	 * @param Origin - Epicenter of the damage area.
+	 * @param DamageInnerRadius - Radius of the full damage area, from Origin
+	 * @param DamageOuterRadius - Radius of the minimum damage area, from Origin
+	 * @param DamageFalloff - Falloff exponent of damage from DamageInnerRadius to DamageOuterRadius
+	 * @param DamageTypeClass - Class that describes the damage that was done.
+	 * @param IgnoreActors - List of Actors to ignore
+	 * @param DamageCauser - Actor that actually caused the damage (e.g. the grenade that exploded)
+	 * @param InstigatedByController - Controller that was responsible for causing this damage (e.g. player who threw the grenade)
+	 * @param bFullDamage - if true, damage not scaled based on distance from Origin
+	 * @param DamagePreventionChannel - Damage will not be applied to victim if there is something between the origin and the victim which blocks traces on this channel
+	 * @return true if damage was applied to at least one actor.
+	 */
+	UFUNCTION(BlueprintCallable, BlueprintAuthorityOnly, Category="Game|Damage", meta=(WorldContext="WorldContextObject", AutoCreateRefTerm="IgnoreActors"))
+	static ENGINE_API bool ApplyRadialDamageWithFalloff(const UObject* WorldContextObject, float BaseDamage, float MinimumDamage, const FVector& Origin, float DamageInnerRadius, float DamageOuterRadius, float DamageFalloff, TSubclassOf<class UDamageType> DamageTypeClass, const TArray<AActor*>& IgnoreActors, AActor* DamageCauser = NULL, AController* InstigatedByController = NULL, ECollisionChannel DamagePreventionChannel = ECC_Visibility);
+	
+
+	/** Hurts the specified actor with the specified impact.
+	 * @param DamagedActor - Actor that will be damaged.
+	 * @param BaseDamage - The base damage to apply.
+	 * @param HitFromDirection - Direction the hit came FROM
+	 * @param HitInfo - Collision or trace result that describes the hit
+	 * @param EventInstigator - Controller that was responsible for causing this damage (e.g. player who shot the weapon)
+	 * @param DamageCauser - Actor that actually caused the damage (e.g. the grenade that exploded)
+	 * @param DamageTypeClass - Class that describes the damage that was done.
+	 * @return Actual damage the ended up being applied to the actor.
+	 */
+	UFUNCTION(BlueprintCallable, BlueprintAuthorityOnly, Category="Game|Damage")
+	static ENGINE_API float ApplyPointDamage(AActor* DamagedActor, float BaseDamage, const FVector& HitFromDirection, const FHitResult& HitInfo, AController* EventInstigator, AActor* DamageCauser, TSubclassOf<class UDamageType> DamageTypeClass);
+
+	/** Hurts the specified actor with generic damage.
+	 * @param DamagedActor - Actor that will be damaged.
+	 * @param BaseDamage - The base damage to apply.
+	 * @param EventInstigator - Controller that was responsible for causing this damage (e.g. player who shot the weapon)
+	 * @param DamageCauser - Actor that actually caused the damage (e.g. the grenade that exploded)
+	 * @param DamageTypeClass - Class that describes the damage that was done.
+	 * @return Actual damage the ended up being applied to the actor.
+	 */
+	UFUNCTION(BlueprintCallable, BlueprintAuthorityOnly, Category="Game|Damage")
+	static ENGINE_API float ApplyDamage(AActor* DamagedActor, float BaseDamage, AController* EventInstigator, AActor* DamageCauser, TSubclassOf<class UDamageType> DamageTypeClass);
+
+```
+
+here the implementation:
+```cpp
+bool UGameplayStatics::ApplyRadialDamage(const UObject* WorldContextObject, float BaseDamage, const FVector& Origin, float DamageRadius, TSubclassOf<UDamageType> DamageTypeClass, const TArray<AActor*>& IgnoreActors, AActor* DamageCauser, AController* InstigatedByController, bool bDoFullDamage, ECollisionChannel DamagePreventionChannel )
+{
+	float DamageFalloff = bDoFullDamage ? 0.f : 1.f;
+	return ApplyRadialDamageWithFalloff(WorldContextObject, BaseDamage, 0.f, Origin, 0.f, DamageRadius, DamageFalloff, DamageTypeClass, IgnoreActors, DamageCauser, InstigatedByController, DamagePreventionChannel);
+}
+
+bool UGameplayStatics::ApplyRadialDamageWithFalloff(const UObject* WorldContextObject, float BaseDamage, float MinimumDamage, const FVector& Origin, float DamageInnerRadius, float DamageOuterRadius, float DamageFalloff, TSubclassOf<class UDamageType> DamageTypeClass, const TArray<AActor*>& IgnoreActors, AActor* DamageCauser, AController* InstigatedByController, ECollisionChannel DamagePreventionChannel)
+{
+	FCollisionQueryParams SphereParams(SCENE_QUERY_STAT(ApplyRadialDamage),  false, DamageCauser);
+
+	SphereParams.AddIgnoredActors(IgnoreActors);
+
+	// query scene to see what we hit
+	TArray<FOverlapResult> Overlaps;
+	if (UWorld* World = GEngine->GetWorldFromContextObject(WorldContextObject, EGetWorldErrorMode::LogAndReturnNull))
+	{
+		World->OverlapMultiByObjectType(Overlaps, Origin, FQuat::Identity, FCollisionObjectQueryParams(FCollisionObjectQueryParams::InitType::AllDynamicObjects), FCollisionShape::MakeSphere(DamageOuterRadius), SphereParams);
+	}
+
+	// collate into per-actor list of hit components
+	TMap<AActor*, TArray<FHitResult> > OverlapComponentMap;
+	for (const FOverlapResult& Overlap : Overlaps)
+	{
+		AActor* const OverlapActor = Overlap.OverlapObjectHandle.FetchActor();
+
+		if (OverlapActor &&
+			OverlapActor->CanBeDamaged() &&
+			OverlapActor != DamageCauser &&
+			Overlap.Component.IsValid())
+		{
+			FHitResult Hit;
+			if (ComponentIsDamageableFrom(Overlap.Component.Get(), Origin, DamageCauser, IgnoreActors, DamagePreventionChannel, Hit))
+			{
+				TArray<FHitResult>& HitList = OverlapComponentMap.FindOrAdd(OverlapActor);
+				HitList.Add(Hit);
+			}
+		}
+	}
+
+	bool bAppliedDamage = false;
+
+	if (OverlapComponentMap.Num() > 0)
+	{
+		// make sure we have a good damage type
+		TSubclassOf<UDamageType> const ValidDamageTypeClass = DamageTypeClass ? DamageTypeClass : TSubclassOf<UDamageType>(UDamageType::StaticClass());
+
+		FRadialDamageEvent DmgEvent;
+		DmgEvent.DamageTypeClass = ValidDamageTypeClass;
+		DmgEvent.Origin = Origin;
+		DmgEvent.Params = FRadialDamageParams(BaseDamage, MinimumDamage, DamageInnerRadius, DamageOuterRadius, DamageFalloff);
+
+		// call damage function on each affected actors
+		for (TMap<AActor*, TArray<FHitResult> >::TIterator It(OverlapComponentMap); It; ++It)
+		{
+			AActor* const Victim = It.Key();
+			TArray<FHitResult> const& ComponentHits = It.Value();
+			DmgEvent.ComponentHits = ComponentHits;
+
+			Victim->TakeDamage(BaseDamage, DmgEvent, InstigatedByController, DamageCauser);
+
+			bAppliedDamage = true;
+		}
+	}
+
+	return bAppliedDamage;
+}
+
+float UGameplayStatics::ApplyPointDamage(AActor* DamagedActor, float BaseDamage, FVector const& HitFromDirection, FHitResult const& HitInfo, AController* EventInstigator, AActor* DamageCauser, TSubclassOf<UDamageType> DamageTypeClass)
+{
+	if (DamagedActor && BaseDamage != 0.f)
+	{
+		// make sure we have a good damage type
+		TSubclassOf<UDamageType> const ValidDamageTypeClass = DamageTypeClass ? DamageTypeClass : TSubclassOf<UDamageType>(UDamageType::StaticClass());
+		FPointDamageEvent PointDamageEvent(BaseDamage, HitInfo, HitFromDirection, ValidDamageTypeClass);
+
+		return DamagedActor->TakeDamage(BaseDamage, PointDamageEvent, EventInstigator, DamageCauser);
+	}
+
+	return 0.f;
+}
+
+float UGameplayStatics::ApplyDamage(AActor* DamagedActor, float BaseDamage, AController* EventInstigator, AActor* DamageCauser, TSubclassOf<UDamageType> DamageTypeClass)
+{
+	if ( DamagedActor && (BaseDamage != 0.f) )
+	{
+		// make sure we have a good damage type
+		TSubclassOf<UDamageType> const ValidDamageTypeClass = DamageTypeClass ? DamageTypeClass : TSubclassOf<UDamageType>(UDamageType::StaticClass());
+		FDamageEvent DamageEvent(ValidDamageTypeClass);
+
+		return DamagedActor->TakeDamage(BaseDamage, DamageEvent, EventInstigator, DamageCauser);
+	}
+
+	return 0.f;
+}
+```
