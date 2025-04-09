@@ -1,7 +1,6 @@
 # GASMagician 🔮
 
-**The Ultimate Gameplay Ability System Framework for Unreal Engine 5**  
-*Powered by Common GAS - Your Blueprint-First Gateway to Professional-Grade Abilities*
+*Powered by GASMagician - Your Blueprint-First Gateway to Professional-Grade Abilities*
 
 [![Version](https://img.shields.io/badge/Version-1.0-blue)](https://github.com/KhxiSaki/GASMagician/releases)
 [![Discord](https://img.shields.io/discord/your-invite-code?logo=discord)]([https://discord.gg/your-invite-link](https://discord.gg/M2K8mnm9f7))
@@ -18,21 +17,13 @@
 
 ## 🌟 What's Inside?
 
-### 🛠️ **Common GAS Core**
+### 🛠️ **GASMagician Core**
 | Feature                | Description                                  |
 |------------------------|----------------------------------------------|
 | **Dual ASC Support**    | PlayerState (Players) + Pawn (AI) components |
 | **Attribute System**    | Health/Mana + Easy Expansion                 |
 | **State Trees**         | Experimental UE5.1 StateTree AI              |
 | **Lyra Foundations**    | Ability Tags, Input Binding, Effect Containers |
-
-### 🔮 **GASMagician Magic**
-| Feature                | Description                                  |
-|------------------------|----------------------------------------------|
-| **Blueprint Libraries** | 15+ Ready-to-Use BP Utilities               |
-| **AI Tasks**            | `ActivateAbilityByClass`, `ApplyEffectToTarget` |
-| **Custom Abilities**    | GameplayEffect Containers (ActionRPG-style)  |
-| **Network-Ready**       | Full multiplayer replication                |
 
 ---
 
@@ -42,7 +33,6 @@
 |-----------------------|------------------------------------------|
 | **Code Modules**      | `GASMagician` (Runtime), `GASMagicianDeveloper` (Uncooked), `GASMagicianEditor` (Editor), `GASMagicianGameProjectGeneration` (Editor) |
 | **Dependencies**       | GameplayAbilities, EnhancedInput, AI, StateTree |
-| **C++ Classes**        | 0                                       |
 | **Network Support**   | Full Replication                         |
 | **UE Version**        | 5.5                                     |
 
@@ -53,7 +43,7 @@
 |-----------------------|--------------------------|----------------------------------|
 | ASC Event Binding     | ❌ Not BP-Exposed         | ✅ v1.1 (Q3 2023)               |
 | Targeting System      | ❌ ActionRPG Legacy       | ✅ UE5.2 GameplayTargetingSystem |
-| Death/Respawn         | ❌ Not Implemented        | ✅ Q4 2023                      |
+| Death/Respawn         | ❌ Not Implemented        | ✅ TBD                      |
 
 ---
 
