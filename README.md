@@ -1,5 +1,9 @@
 # GASMagician 🔮
 
+# Maintenance
+Maintenance Soon!
+
+# About
 *Powered by GASMagician - Your Blueprint-First Gateway to Professional-Grade Abilities*
 
 [![Version](https://img.shields.io/badge/Version-1.0-blue)](https://github.com/KhxiSaki/GASMagician/releases)
